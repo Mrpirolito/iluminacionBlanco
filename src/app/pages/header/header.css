@@ -1,0 +1,64 @@
+.logo-link {
+  cursor: pointer;
+  font-weight: bold;
+  text-decoration: none;
+  color: inherit; /* conserva color del texto */
+}
+
+/* Botón hamburguesa oculto en desktop */
+.menu-btn {
+  display: none;
+  font-size: 26px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Sidebar (cerrado por defecto) */
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: -300px; /* oculto */
+  width: 250px;
+  height: 100%;
+  background: white;
+  box-shadow: -2px 0 6px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  transition: 0.3s;
+  z-index: 100;
+}
+
+.sidebar.open {
+  right: 0; /* visible */
+}
+
+.sidebar a {
+  margin: 12px 0;
+  text-decoration: none;
+  color: black;
+  font-size: 1.1rem;
+}
+
+.close-btn {
+  align-self: flex-end;
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* RESPONSIVE: cuando la pantalla es pequeña */
+@media (max-width: 768px) {
+  
+  /* Ocultar menú normal */
+  .nav-desktop {
+    display: none;
+  }
+
+  /* Mostrar hamburguesa */
+  .menu-btn {
+    display: block;
+  }
+}

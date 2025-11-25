@@ -14,24 +14,15 @@ header {
     padding: 1rem 2rem;
     background-color: #ffffff;
     border-bottom: 1px solid #e0e0e0;
+    position: sticky;
+    z-index: 100;
+    top: 0;
+    height: 50px;
 }
 
 header .logo strong {
     font-size: 1.5rem;
     font-weight: bold;
-}
-
-header .search-bar {
-    flex-grow: 1;
-    margin: 0 2rem;
-}
-
-header .search-bar input {
-    width: 100%;
-    padding: 0.75rem;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #f8f8f8;
 }
 
 header nav ul {
@@ -48,6 +39,7 @@ header nav a {
     font-weight: 500;
 }
 
+/* Creo que este y los 2 siguientes no se usan*/
 header .header-icons {
     display: flex;
     align-items: center;

@@ -1,0 +1,33 @@
+<header>
+    <div class="logo">
+        <a routerLink="/" class="logo-link">
+            <strong>RUBIAL BLANCO</strong>
+        </a>
+    </div>
+    <nav>
+        <ul *ngIf="!checkScreenSize()">
+            <li><a href="#interior">Interior</a></li>
+            <li><a href="#exterior">Exterior</a></li>
+            <li><a href="#ventiladores">Ventiladores</a></li>
+            <li><a routerLink="/contact" style="cursor: pointer;">Contacto</a></li>
+            <li><a href="#sobre-nosotros">Sobre nosotros</a></li>
+        </ul>
+    </nav>
+    <!-- Botón hamburguesa si la pantalla es muy pequeña -->
+    <button class="menu-btn" (click)="toggleMenu()">
+    ☰
+    </button>
+
+</header>
+
+<!-- Sidebar -->
+<div class="sidebar" [class.open]="menuOpen">
+  <button class="close-btn" (click)="toggleMenu()">✕</button>
+
+  <a routerLink="/" (click)="toggleMenu()">Inicio</a>
+  <a routerLink="/interior" (click)="toggleMenu()">Interior</a>
+  <a routerLink="/exterior" (click)="toggleMenu()">Exterior</a>
+  <a routerLink="/ventiladores" (click)="toggleMenu()">Ventiladores</a>
+  <a routerLink="/contact" (click)="toggleMenu()">Contacto</a>
+  <a routerLink="/sobre-nosotros" (click)="toggleMenu()">Sobre nosotros</a>
+</div>
