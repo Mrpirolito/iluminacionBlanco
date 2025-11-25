@@ -1,0 +1,6 @@
+Generar un nuevo componente:
+    ng generate component pages/X --standalone  --> esto genera el componente con nombre X en app/pages, creando su respectivo html, css y ts
+
+app.routes.ts contiene las rutas de la app, si se quiere enlazar el nuevo componente hay que agregar el path y el nombre del componente deseado (con su import)
+
+<router-outlet></router-outlet> inyecta el contenido del html que corresponde a la ruta actual
