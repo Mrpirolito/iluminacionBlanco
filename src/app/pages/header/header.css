@@ -47,12 +47,8 @@
   .nav-desktop li {
     white-space: nowrap;
     flex: 0 0 auto;
+    font-size: 24px;
   }
-  font-size: 24px;
-  background: none;
-  border: none;
-  cursor: pointer;
-}
 
 /* RESPONSIVE: cuando la pantalla es pequeña */
 @media (max-width: 768px) {
