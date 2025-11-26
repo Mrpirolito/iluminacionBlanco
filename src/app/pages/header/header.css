@@ -10,6 +10,8 @@
   display: none;
   font-size: 26px;
   background: none;
+  /* Ensure header uses box-sizing and has horizontal padding so nav stays inside viewport */
+  header { box-sizing: border-box; padding: 0 18px; display: flex; align-items: center; }
   border: none;
   cursor: pointer;
 }
@@ -24,25 +26,28 @@
   background: white;
   box-shadow: -2px 0 6px rgba(0,0,0,0.2);
   display: flex;
-  flex-direction: column;
-  padding: 20px;
-  transition: 0.3s;
-  z-index: 100;
-}
-
-.sidebar.open {
-  right: 0; /* visible */
-}
-
-.sidebar a {
+  .nav-desktop {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    /* allow wrapping to next line if there's not enough space */
+    flex: 1 1 auto;
+    justify-content: flex-end;
+    padding: 0 8px 0 0;
+    list-style: none;
+    min-width: 0; /* allow flex children to shrink */
+    flex-wrap: wrap;
+    max-width: calc(100% - 200px); /* keep some room for logo and buttons */
+  }
   margin: 12px 0;
   text-decoration: none;
   color: black;
   font-size: 1.1rem;
 }
-
-.close-btn {
-  align-self: flex-end;
+  .nav-desktop li {
+    white-space: nowrap;
+    flex: 0 0 auto;
+  }
   font-size: 24px;
   background: none;
   border: none;
@@ -62,3 +67,120 @@
     display: block;
   }
 }
+
+/* Desktop nav layout and overflow protection */
+.nav-desktop {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  /* occupy remaining header space so items align to the right without overflowing */
+  flex: 1 1 auto;
+  justify-content: flex-end;
+  padding: 0;
+  list-style: none;
+  min-width: 0; /* allow flex children to shrink */
+}
+
+.nav-desktop li {
+  white-space: nowrap;
+}
+
+.nav-desktop a {
+  text-decoration: none;
+  color: inherit;
+  display: inline-block;
+  padding: 6px 8px;
+}
+
+/* More dropdown styles */
+.more { position: relative; }
+.more-btn {
+  background: none;
+  border: none;
+  padding: 6px 8px;
+  cursor: pointer;
+}
+.more-menu {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background: #fff;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  border-radius: 6px;
+  list-style: none;
+  padding: 8px 0;
+  margin: 8px 0 0 0;
+  display: none;
+}
+.more:hover .more-menu,
+.more:focus-within .more-menu {
+  display: block;
+}
+.more-menu li { padding: 6px 18px; white-space: nowrap; }
+.more-menu li a { color: #333; }
+
+/* If too many items, allow horizontal scroll instead of overflowing layout */
+.nav-desktop {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Hide scrollbar for a cleaner header (optional) */
+.nav-desktop::-webkit-scrollbar { height: 6px; }
+.nav-desktop::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); border-radius: 4px; }
+
+/* Topbar with phone/email */
+.topbar {
+  background: #d98910; /* warm orange similar to screenshot */
+  color: #fff;
+  font-size: 0.95rem;
+  padding: 6px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Make header fixed so page content doesn't shift when embedded content changes */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1100;
+  background: white;
+}
+
+/* Make header height correspond to global variable */
+header { height: var(--header-height); }
+
+/* Ensure logo/nav area sits below topbar and has its own visual space */
+.logo {
+  display: flex;
+  align-items: center;
+  padding: 14px 18px;
+  background: #fff;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.04);
+}
+
+.topbar-left {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+}
+
+.top-item {
+  display: inline-block;
+}
+
+.topbar-right .brand-name {
+  color: #00a3e0; /* subtle blue for name */
+  font-weight: 600;
+}
+
+/* smaller screens: tighten topbar */
+@media (max-width: 600px) {
+  .topbar-left { gap: 10px; font-size: 0.9rem; }
+  .topbar-right { display: none; }
+}
+
+/* overlay styles removed from header; overaly lives in contact.css */

@@ -6,6 +6,13 @@ body {
     color: #333;
 }
 
+:root {
+    --header-height: 110px; /* adjust if header actual height changes */
+}
+
+/* Reserve space for the fixed header on all pages */
+body { padding-top: var(--header-height); }
+
 /* Encabezado */
 header {
     display: flex;
@@ -14,10 +21,14 @@ header {
     padding: 1rem 2rem;
     background-color: #ffffff;
     border-bottom: 1px solid #e0e0e0;
-    position: sticky;
-    z-index: 100;
-    top: 0;
-    height: 50px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    vertical-align: baseline;
 }
 
 header .logo strong {
@@ -67,6 +78,10 @@ header .header-icons span {
     text-align: left;
     padding: 10rem 4rem;
     position: relative;
+    font-size: 100%;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    vertical-align: baseline;
 }
 
 #hero::before {
@@ -166,4 +181,81 @@ footer {
     background-color: #f8f8f8;
     color: #888;
     font-size: 0.9rem;
+}
+
+/* ===== ZOOM-LOCK: Prevent image/content deformation on browser zoom ===== */
+
+/* Global rule: disable zoom scaling on images */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    /* Force rendering layer (GPU acceleration) */
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    /* Prevent text reflow and zoom scaling */
+    will-change: auto;
+    /* Block drag/pinch zoom on images */
+    -webkit-user-drag: 100%;
+    -webkit-touch-callout: 100%;
+    -webkit-user-select: 100%;
+    /* Crisp rendering across zoom levels */
+    image-rendering: -webkit-optimize-contrast;
+}
+
+/* Root element zoom mitigation: prevent document-level reflow */
+html, body {
+    /* Lock body to 100% viewport dimensions */
+    width: 100%;
+    height: auto;
+    /* Ensure CSS transforms work properly */
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    
+}
+
+/* Containers: prevent reflow on zoom */
+main, section, .category-gallery, .category-card, .contact-page, .map-container {
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    box-sizing: border-box;
+}
+
+/* Disable text selection zoom workarounds */
+body { user-select: none; -webkit-user-select: none; -ms-user-select: none; }
+
+/* Allow text selection only on semantic elements */
+p, h1, h2, h3, h4, h5, h6, a, span, li {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+}
+
+/* Disable double-tap zoom on touch devices */
+body { touch-action: pan-x pan-y; }
+
+/* Override category-gallery from global styles to ensure consistency */
+.category-gallery {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+}
+
+.category-card {
+    text-align: left;
+}
+
+.category-card img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.category-card h3 {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin: 0;
 }
