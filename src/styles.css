@@ -259,3 +259,33 @@ body { touch-action: pan-x pan-y; }
     font-weight: 500;
     margin: 0;
 }
+
+/* Floating WhatsApp button (global) */
+.whatsapp-fab {
+        position: fixed !important;
+        right: 18px;
+        bottom: 18px;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background-color: #25D366; /* WhatsApp green */
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff'><path d='M20.52 3.48A11.93 11.93 0 0 0 12 0c-6.627 0-12 5.373-12 12 0 2.114.546 4.086 1.586 5.847L0 24l6.439-1.691A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12 0-1.964-.48-3.813-1.48-5.52zM12 21.75c-1.84 0-3.634-.5-5.18-1.44l-.37-.22-3.83 1.01 1.02-3.73-.24-.38A9.75 9.75 0 1 1 21.75 12 9.76 9.76 0 0 1 12 21.75z'/><path d='M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.472-.149-.672.149-.198.297-.768.967-.942 1.166-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.885-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.372-.025-.521-.074-.149-.672-1.62-.92-2.22-.242-.581-.487-.5-.672-.51l-.573-.01c-.198 0-.52.074-.793.372s-1.04 1.016-1.04 2.479 1.064 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487 2.981 1.29 2.981.86 3.518.806.538-.05 1.758-.718 2.006-1.412.248-.695.248-1.29.173-1.412-.074-.123-.27-.198-.567-.347z'/></svg>");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 56% 56%;
+        box-shadow: 0 10px 28px rgba(37,211,102,0.18), 0 2px 6px rgba(0,0,0,0.12);
+        z-index: 99999; /* ensure it's above everything */
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transform: translateZ(0);
+        transition: transform 150ms ease, box-shadow 150ms ease;
+}
+.whatsapp-fab:active { transform: scale(0.96); }
+.whatsapp-fab:hover { box-shadow: 0 14px 34px rgba(37,211,102,0.22); transform: translateY(-3px); }
+
+/* Ensure it's still visible and appropriately sized on small screens */
+@media (max-width: 480px) {
+    .whatsapp-fab { width: 48px; height: 48px; right: 14px; bottom: 14px; background-size: 60% 60%; }
+}

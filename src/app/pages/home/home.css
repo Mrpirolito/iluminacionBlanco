@@ -1,42 +1,110 @@
 .category-gallery {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.5rem;
-  /* Lock grid layout against zoom */
+  /* fixed column width so images remain centered and evenly spaced */
+  grid-template-columns: repeat(4, 220px);
+  gap: 1.4rem; /* slightly larger but consistent */
+  justify-content: center; /* center the whole grid inside its container */
   transform: translateZ(0);
   -webkit-transform: translateZ(0);
+  align-items: start;
+  justify-items: center;
+  max-width: 1100px; /* keep gallery a centered column block */
+  margin: 0 auto;
 }
 
 .category-card {
-  text-align: left;
-  /* Lock card size */
-  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
   transform: translateZ(0);
+  width: 220px;
 }
 
 .category-card img {
-  /* Fixed dimensions: width 100% of container, height locked */
-  width: 100%;
-  height: 300px;
+  /* Portrait (vertical) images, smaller */
+  width: 220px;
+  height: 320px;
   object-fit: cover;
   border-radius: 8px;
-  margin-bottom: 1rem;
-  /* Disable transform/scale on zoom */
+  margin: 0 auto;
   transform: translateZ(0);
-  -webkit-transform: translateZ(0);
-  /* Prevent browser zoom from affecting size */
   box-sizing: border-box;
-  /* Disable image zoom behavior */
   -webkit-user-drag: none;
   -webkit-touch-callout: none;
 }
 
 .category-card h3 {
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: 500;
   margin: 0;
-  /* Prevent text scaling with zoom */
-  transform: translateZ(0);
+  text-align: center;
+  width: 100%;
+}
+
+/* Center the departamentos header and stack view-all under the title for a homogeneous layout */
+.section-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+.section-header .view-all-link {
+  font-size: 0.95rem;
+  color: #555;
+  text-decoration: none;
+}
+
+/* HERO layout: centered container, image can overflow to the right */
+#hero {
+  position: relative;
+  overflow: visible;
+  padding: 3rem 0 2rem 0;
+}
+
+.hero-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  position: relative;
+}
+
+.hero-content {
+  flex: 0 0 50%;
+  color: #fff;
+}
+
+.hero-content h1 {
+  font-size: 2.4rem;
+  margin-bottom: 1rem;
+}
+
+.hero-visual {
+  flex: 0 0 50%;
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+}
+
+.hero-visual img {
+  width: 420px;
+  max-width: 46vw;
+  height: auto;
+  display: block;
+  border-radius: 6px;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.25);
+  transform: translateX(80px); /* protrude to the right */
+}
+
+/* On small screens, stack and remove overflow */
+@media (max-width: 900px) {
+  .hero-inner { flex-direction: column; gap: 18px; padding: 1rem; }
+  .hero-content { text-align: center; color: #fff; }
+  .hero-visual img { transform: translateX(0); width: 100%; max-width: 420px; }
+  #hero { padding-top: 2rem; }
 }
 
 /* Responsive: tablet */

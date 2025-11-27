@@ -1,31 +1,30 @@
 <header>
-    <div class="logo">
-        <a routerLink="/" class="logo-link">
-            <strong>RUBIAL BLANCO</strong>
-        </a>
+    <div class="header-inner">
+        <div class="logo">
+            <a routerLink="/" class="logo-link">
+                <strong>RUBIAL BLANCO</strong>
+            </a>
+        </div>
+        <nav>
+            <ul #navContainer class="nav-desktop" *ngIf="!checkScreenSize()">
+                <li *ngFor="let item of visibleItems">
+                    <a [routerLink]="item.router ? item.href : null" [attr.href]="!item.router ? item.href : null">{{item.label}}</a>
+                </li>
+
+                <!-- More dropdown when items overflow -->
+                <li *ngIf="overflowItems.length" class="more">
+                    <button class="more-btn">Más ▾</button>
+                    <ul class="more-menu">
+                        <li *ngFor="let it of overflowItems"><a [routerLink]="it.router ? it.href : null" [attr.href]="!it.router ? it.href : null">{{it.label}}</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <!-- Hidden measurement container -->
+            <ul #measure class="measure-list" aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;visibility:hidden;padding:0;margin:0;list-style:none;"></ul>
+        </nav>
+        <!-- Botón hamburguesa si la pantalla es muy pequeña -->
+        <button class="menu-btn" (click)="toggleMenu()">☰</button>
     </div>
-    <nav>
-        <ul #navContainer class="nav-desktop" *ngIf="!checkScreenSize()">
-            <li *ngFor="let item of visibleItems">
-                <a [routerLink]="item.router ? item.href : null" [attr.href]="!item.router ? item.href : null">{{item.label}}</a>
-            </li>
-
-            <!-- More dropdown when items overflow -->
-            <li *ngIf="overflowItems.length" class="more">
-                <button class="more-btn">Más ▾</button>
-                <ul class="more-menu">
-                    <li *ngFor="let it of overflowItems"><a [routerLink]="it.router ? it.href : null" [attr.href]="!it.router ? it.href : null">{{it.label}}</a></li>
-                </ul>
-            </li>
-        </ul>
-        <!-- Hidden measurement container -->
-        <ul #measure class="measure-list" aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;visibility:hidden;padding:0;margin:0;list-style:none;"></ul>
-    </nav>
-    <!-- Botón hamburguesa si la pantalla es muy pequeña -->
-    <button class="menu-btn" (click)="toggleMenu()">
-    ☰
-    </button>
-
 </header>
 
 <!-- Sidebar -->

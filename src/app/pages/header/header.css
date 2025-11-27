@@ -1,3 +1,85 @@
+:root {
+  --header-max-width: 1200px;
+}
+
+.header-inner {
+  max-width: var(--header-max-width);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column; /* stack logo and nav vertically */
+  align-items: center; /* center everything horizontally */
+  gap: 6px;
+  padding: 0 18px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.logo-link {
+  cursor: pointer;
+  font-weight: bold;
+  text-decoration: none;
+  color: inherit;
+}
+
+.logo { display: flex; align-items: center; }
+
+.menu-btn { display: none; font-size: 26px; background: none; border: none; cursor: pointer; }
+
+.sidebar {
+  position: fixed; top: 0; right: -300px; width: 250px; height: 100%; background: white;
+  box-shadow: -2px 0 6px rgba(0,0,0,0.2); display: flex; flex-direction: column; padding: 20px; transition: 0.3s; z-index: 1200;
+}
+.sidebar.open { right: 0; }
+.sidebar a { margin: 12px 0; text-decoration: none; color: black; font-size: 1.1rem; }
+.close-btn { align-self: flex-end; font-size: 24px; background: none; border: none; cursor: pointer; }
+
+/* Desktop nav layout and overflow protection */
+.nav-desktop {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  /* center nav items under the logo */
+  justify-content: center;
+  padding: 0;
+  list-style: none;
+  min-width: 0;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  width: 100%;
+}
+.nav-desktop::-webkit-scrollbar { height: 6px; }
+.nav-desktop::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); border-radius: 4px; }
+.nav-desktop li { white-space: nowrap; flex: 0 0 auto; }
+.nav-desktop a { text-decoration: none; color: inherit; display: inline-block; padding: 6px 8px; font-size: 0.98rem; }
+
+/* More dropdown styles */
+.more { position: relative; }
+.more-btn { background: none; border: none; padding: 6px 8px; cursor: pointer; font-size: 0.98rem; }
+.more-menu { position: absolute; right: 0; top: 100%; background: #fff; box-shadow: 0 6px 18px rgba(0,0,0,0.12); border-radius: 6px; list-style: none; padding: 8px 0; margin: 8px 0 0 0; display: none; }
+.more:hover .more-menu, .more:focus-within .more-menu { display: block; }
+.more-menu li { padding: 6px 18px; white-space: nowrap; }
+.more-menu li a { color: #333; }
+
+/* Topbar */
+.topbar { background: #d98910; color: #fff; font-size: 0.95rem; padding: 6px 16px; display: flex; justify-content: center; align-items: center; }
+.topbar .topbar-inner { max-width: var(--header-max-width); width:100%; margin:0 auto; display:flex; justify-content:center; align-items:center; gap:18px; padding:0 18px; box-sizing:border-box; }
+
+/* Header container fixed */
+header { position: fixed; top: 0; left: 0; width: 100%; z-index: 1100; background: white; }
+header { height: var(--header-height); }
+
+/* Ensure the header-inner sits below the topbar and is vertically centered */
+.logo { padding: 12px 0; text-align: center; }
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .nav-desktop { gap: 10px; }
+}
+@media (max-width: 768px) {
+  .nav-desktop { display: none; }
+  .menu-btn { display: block; }
+}
 .logo-link {
   cursor: pointer;
   font-weight: bold;
@@ -26,18 +108,29 @@
   background: white;
   box-shadow: -2px 0 6px rgba(0,0,0,0.2);
   display: flex;
+  flex-direction: column;
+  padding: 20px;
+  transition: 0.3s;
+  z-index: 100;
+}
+
+.sidebar.open {
+  right: 0; /* visible */
+}
+
+.sidebar a {
   .nav-desktop {
     display: flex;
-    gap: 12px;
+    gap: 8px;
     align-items: center;
     /* allow wrapping to next line if there's not enough space */
     flex: 1 1 auto;
     justify-content: flex-end;
-    padding: 0 8px 0 0;
+    padding: 0 6px 0 0;
     list-style: none;
     min-width: 0; /* allow flex children to shrink */
     flex-wrap: wrap;
-    max-width: calc(100% - 200px); /* keep some room for logo and buttons */
+    max-width: calc(100% - 160px); /* keep some room for logo and buttons */
   }
   margin: 12px 0;
   text-decoration: none;
@@ -85,7 +178,8 @@
   text-decoration: none;
   color: inherit;
   display: inline-block;
-  padding: 6px 8px;
+  padding: 4px 6px;
+  font-size: 0.95rem;
 }
 
 /* More dropdown styles */
@@ -93,8 +187,9 @@
 .more-btn {
   background: none;
   border: none;
-  padding: 6px 8px;
+  padding: 4px 6px;
   cursor: pointer;
+  font-size: 0.95rem;
 }
 .more-menu {
   position: absolute;
