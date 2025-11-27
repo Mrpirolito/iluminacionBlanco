@@ -1,0 +1,7 @@
+<h1 style="padding-left: 20px;">PRODUCTOS</h1>
+
+<div *ngFor="let p of productos" class="producto" style="padding-left: 30px;">
+  <h3>{{ p.fields.productName }}</h3>
+  <img [src]="'https:' + p.fields.productImage.fields.file.url">
+  <p>{{ p.fields.productDescription }}</p>
+</div>

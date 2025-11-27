@@ -13,7 +13,7 @@ export class Contact {
   @HostListener('window:scroll')
   onWindowScroll() {
     // Only for contact page: show overlay after the user scrolls down
-    this.overlayActive = window.scrollY > 120;
+    this.overlayActive = window.scrollY > 500;
   }
 
 }
