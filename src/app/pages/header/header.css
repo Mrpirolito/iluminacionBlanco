@@ -1,277 +1,327 @@
-:root {
-  --header-max-width: 1200px;
+header {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    border-bottom: 1px solid #eee;
+    z-index: 100;
+    position: sticky;
+    top: 0;
 }
 
 .header-inner {
-  max-width: var(--header-max-width);
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column; /* stack logo and nav vertically */
-  align-items: center; /* center everything horizontally */
-  gap: 6px;
-  padding: 0 18px;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.logo-link {
-  cursor: pointer;
-  font-weight: bold;
-  text-decoration: none;
-  color: inherit;
-}
-
-.logo { display: flex; align-items: center; }
-
-.menu-btn { display: none; font-size: 26px; background: none; border: none; cursor: pointer; }
-
-.sidebar {
-  position: fixed; top: 0; right: -300px; width: 250px; height: 100%; background: white;
-  box-shadow: -2px 0 6px rgba(0,0,0,0.2); display: flex; flex-direction: column; padding: 20px; transition: 0.3s; z-index: 1200;
-}
-.sidebar.open { right: 0; }
-.sidebar a { margin: 12px 0; text-decoration: none; color: black; font-size: 1.1rem; }
-.close-btn { align-self: flex-end; font-size: 24px; background: none; border: none; cursor: pointer; }
-
-/* Desktop nav layout and overflow protection */
-.nav-desktop {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  /* center nav items under the logo */
-  justify-content: center;
-  padding: 0;
-  list-style: none;
-  min-width: 0;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  width: 100%;
-}
-.nav-desktop::-webkit-scrollbar { height: 6px; }
-.nav-desktop::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); border-radius: 4px; }
-.nav-desktop li { white-space: nowrap; flex: 0 0 auto; }
-.nav-desktop a { text-decoration: none; color: inherit; display: inline-block; padding: 6px 8px; font-size: 0.98rem; }
-
-/* More dropdown styles */
-.more { position: relative; }
-.more-btn { background: none; border: none; padding: 6px 8px; cursor: pointer; font-size: 0.98rem; }
-.more-menu { position: absolute; right: 0; top: 100%; background: #fff; box-shadow: 0 6px 18px rgba(0,0,0,0.12); border-radius: 6px; list-style: none; padding: 8px 0; margin: 8px 0 0 0; display: none; }
-.more:hover .more-menu, .more:focus-within .more-menu { display: block; }
-.more-menu li { padding: 6px 18px; white-space: nowrap; }
-.more-menu li a { color: #333; }
-
-/* Topbar */
-.topbar { background: #d98910; color: #fff; font-size: 0.95rem; padding: 6px 16px; display: flex; justify-content: center; align-items: center; }
-.topbar .topbar-inner { max-width: var(--header-max-width); width:100%; margin:0 auto; display:flex; justify-content:center; align-items:center; gap:18px; padding:0 18px; box-sizing:border-box; }
-
-/* Header container fixed */
-header { position: fixed; top: 0; left: 0; width: 100%; z-index: 1100; background: white; }
-header { height: var(--header-height); }
-
-/* Ensure the header-inner sits below the topbar and is vertically centered */
-.logo { padding: 12px 0; text-align: center; }
-
-/* Responsive */
-@media (max-width: 1024px) {
-  .nav-desktop { gap: 10px; }
-}
-@media (max-width: 768px) {
-  .nav-desktop { display: none; }
-  .menu-btn { display: block; }
-}
-.logo-link {
-  cursor: pointer;
-  font-weight: bold;
-  text-decoration: none;
-  color: inherit; /* conserva color del texto */
-}
-
-/* Botón hamburguesa oculto en desktop */
-.menu-btn {
-  display: none;
-  font-size: 26px;
-  background: none;
-  /* Ensure header uses box-sizing and has horizontal padding so nav stays inside viewport */
-  header { box-sizing: border-box; padding: 0 18px; display: flex; align-items: center; }
-  border: none;
-  cursor: pointer;
-}
-
-/* Sidebar (cerrado por defecto) */
-.sidebar {
-  position: fixed;
-  top: 0;
-  right: -300px; /* oculto */
-  width: 250px;
-  height: 100%;
-  background: white;
-  box-shadow: -2px 0 6px rgba(0,0,0,0.2);
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-  transition: 0.3s;
-  z-index: 100;
-}
-
-.sidebar.open {
-  right: 0; /* visible */
-}
-
-.sidebar a {
-  .nav-desktop {
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 18px;
     display: flex;
-    gap: 8px;
     align-items: center;
-    /* allow wrapping to next line if there's not enough space */
-    flex: 1 1 auto;
-    justify-content: flex-end;
-    padding: 0 6px 0 0;
-    list-style: none;
-    min-width: 0; /* allow flex children to shrink */
-    flex-wrap: wrap;
-    max-width: calc(100% - 160px); /* keep some room for logo and buttons */
-  }
-  margin: 12px 0;
-  text-decoration: none;
-  color: black;
-  font-size: 1.1rem;
-}
-  .nav-desktop li {
-    white-space: nowrap;
-    flex: 0 0 auto;
-    font-size: 24px;
-  }
-
-/* RESPONSIVE: cuando la pantalla es pequeña */
-@media (max-width: 768px) {
-  
-  /* Ocultar menú normal */
-  .nav-desktop {
-    display: none;
-  }
-
-  /* Mostrar hamburguesa */
-  .menu-btn {
-    display: block;
-  }
+    justify-content: space-between;
+    gap: 20px;
+    height: 110px;
 }
 
-/* Desktop nav layout and overflow protection */
+.logo {
+    flex-shrink: 0;
+    min-width: max-content;
+}
+
+.logo-link {
+    text-decoration: none;
+    color: black;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    transition: opacity 0.3s;
+}
+
+.logo-link:hover {
+    opacity: 0.7;
+}
+
+/* Search box */
+.search-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    background-color: #f0f0f0;
+    border-radius: 20px;
+    padding: 6px 14px;
+}
+
+.search-input {
+    border: none;
+    background: transparent;
+    font-size: 13px;
+    font-weight: 500;
+    outline: none;
+    color: #333;
+    padding: 0;
+    min-width: 130px;
+    transition: color 0.3s;
+}
+
+.search-input:focus {
+    color: #000;
+}
+
+.search-input::placeholder {
+    color: #999;
+    font-weight: 400;
+}
+
+.search-icon {
+    font-size: 16px;
+    cursor: pointer;
+    color: #999;
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+}
+
+/* Navigation */
+nav {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
 .nav-desktop {
-  display: flex;
-  gap: 14px;
-  align-items: center;
-  /* occupy remaining header space so items align to the right without overflowing */
-  flex: 1 1 auto;
-  justify-content: flex-end;
-  padding: 0;
-  list-style: none;
-  min-width: 0; /* allow flex children to shrink */
+    display: flex;
+    gap: 2px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .nav-desktop li {
-  white-space: nowrap;
+    position: relative;
 }
 
 .nav-desktop a {
-  text-decoration: none;
-  color: inherit;
-  display: inline-block;
-  padding: 4px 6px;
-  font-size: 0.95rem;
+    display: inline-block;
+    padding: 8px 12px;
+    text-decoration: none;
+    color: #333;
+    font-size: 13px;
+    font-weight: 500;
+    transition: color 0.3s, background-color 0.3s;
+    white-space: nowrap;
 }
 
-/* More dropdown styles */
-.more { position: relative; }
+.nav-desktop a:hover {
+    color: #555;
+    background-color: #f0f0f0;
+    border-radius: 2px;
+}
+
+/* More dropdown */
+.more {
+    position: relative;
+}
+
 .more-btn {
-  background: none;
-  border: none;
-  padding: 4px 6px;
-  cursor: pointer;
-  font-size: 0.95rem;
+    padding: 8px 12px;
+    border: none;
+    background: transparent;
+    color: #333;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: color 0.3s, background-color 0.3s;
 }
+
+.more-btn:hover {
+    color: #555;
+    background-color: #f0f0f0;
+    border-radius: 2px;
+}
+
 .more-menu {
-  position: absolute;
-  right: 0;
-  top: 100%;
-  background: #fff;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
-  border-radius: 6px;
-  list-style: none;
-  padding: 8px 0;
-  margin: 8px 0 0 0;
-  display: none;
-}
-.more:hover .more-menu,
-.more:focus-within .more-menu {
-  display: block;
-}
-.more-menu li { padding: 6px 18px; white-space: nowrap; }
-.more-menu li a { color: #333; }
-
-/* If too many items, allow horizontal scroll instead of overflowing layout */
-.nav-desktop {
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    border: 1px solid #eee;
+    border-radius: 2px;
+    list-style: none;
+    padding: 8px 0;
+    margin: 4px 0 0 0;
+    min-width: 150px;
+    display: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
 }
 
-/* Hide scrollbar for a cleaner header (optional) */
-.nav-desktop::-webkit-scrollbar { height: 6px; }
-.nav-desktop::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); border-radius: 4px; }
-
-/* Topbar with phone/email */
-.topbar {
-  background: #d98910; /* warm orange similar to screenshot */
-  color: #fff;
-  font-size: 0.95rem;
-  padding: 6px 16px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.more:hover .more-menu {
+    display: block;
 }
 
-/* Make header fixed so page content doesn't shift when embedded content changes */
-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1100;
-  background: white;
+.more-menu li {
+    padding: 0;
 }
 
-/* Make header height correspond to global variable */
-header { height: var(--header-height); }
-
-/* Ensure logo/nav area sits below topbar and has its own visual space */
-.logo {
-  display: flex;
-  align-items: center;
-  padding: 14px 18px;
-  background: #fff;
-  box-shadow: 0 1px 0 rgba(0,0,0,0.04);
+.more-menu a {
+    display: block;
+    padding: 10px 16px;
+    text-decoration: none;
+    color: #333;
+    font-size: 13px;
+    font-weight: 500;
+    transition: background-color 0.3s;
 }
 
-.topbar-left {
-  display: flex;
-  gap: 18px;
-  align-items: center;
+.more-menu a:hover {
+    background-color: #f5f5f5;
 }
 
-.top-item {
-  display: inline-block;
+/* Hamburger menu */
+.menu-btn {
+    display: none;
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #333;
 }
 
-.topbar-right .brand-name {
-  color: #00a3e0; /* subtle blue for name */
-  font-weight: 600;
+/* Sidebar */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100%;
+    background-color: white;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 999;
+    padding-top: 20px;
+    display: none;
+    flex-direction: column;
+    gap: 0;
 }
 
-/* smaller screens: tighten topbar */
-@media (max-width: 600px) {
-  .topbar-left { gap: 10px; font-size: 0.9rem; }
-  .topbar-right { display: none; }
+.sidebar.open {
+    transform: translateX(0);
 }
 
-/* overlay styles removed from header; overaly lives in contact.css */
+.sidebar a {
+    padding: 16px 20px;
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+    font-weight: 500;
+    border-bottom: 1px solid #eee;
+    transition: background-color 0.3s;
+}
+
+.sidebar a:hover {
+    background-color: #f5f5f5;
+}
+
+.close-btn {
+    align-self: flex-end;
+    padding: 16px 20px;
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: #333;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .search-input {
+        min-width: 120px;
+    }
+
+    .nav-desktop a {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+
+    .more-btn {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .search-input {
+        min-width: 100px;
+    }
+
+    .nav-desktop a {
+        padding: 6px 8px;
+        font-size: 12px;
+    }
+
+    .more-btn {
+        padding: 6px 8px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 768px) {
+    .header-inner {
+        height: auto;
+        padding: 12px 18px;
+        gap: 12px;
+    }
+
+    .logo-link {
+        font-size: 12px;
+    }
+
+    .search-box {
+        margin-left: 0;
+        order: 3;
+        width: calc(100% - 24px);
+        margin-top: 8px;
+    }
+
+    .search-input {
+        min-width: unset;
+        flex: 1;
+    }
+
+    .nav-desktop {
+        display: none;
+    }
+
+    .menu-btn {
+        display: block;
+    }
+
+    .sidebar {
+        display: flex;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-inner {
+        flex-wrap: wrap;
+    }
+
+    .search-box {
+        max-width: none;
+        order: 3;
+        width: 100%;
+        font-size: 12px;
+    }
+
+    .logo-link {
+        font-size: 11px;
+    }
+
+    .search-input {
+        font-size: 12px;
+    }
+}

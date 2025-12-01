@@ -5,7 +5,12 @@
                 <strong>RUBIAL BLANCO</strong>
             </a>
         </div>
+
         <nav>
+            <div class="search-box">
+                <img src="/images/Lupa.png" alt="Buscar" class="search-icon">
+                <input type="text" placeholder="Buscar productos..." class="search-input">
+            </div>
             <ul #navContainer class="nav-desktop" *ngIf="!checkScreenSize()">
                 <li *ngFor="let item of visibleItems">
                     <a [routerLink]="item.router ? item.href : null" [attr.href]="!item.router ? item.href : null">{{item.label}}</a>
@@ -22,6 +27,7 @@
             <!-- Hidden measurement container -->
             <ul #measure class="measure-list" aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;visibility:hidden;padding:0;margin:0;list-style:none;"></ul>
         </nav>
+        
         <!-- Botón hamburguesa si la pantalla es muy pequeña -->
         <button class="menu-btn" (click)="toggleMenu()">☰</button>
     </div>

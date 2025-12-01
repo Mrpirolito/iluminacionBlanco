@@ -10,8 +10,8 @@ body {
     --header-height: 110px; /* adjust if header actual height changes */
 }
 
-/* Reserve space for the fixed header on all pages */
-body { padding-top: var(--header-height); }
+/* Reserve space for the fixed header on all pages 
+body { padding-top: var(--header-height); } */
 
 /* Encabezado */
 header {
