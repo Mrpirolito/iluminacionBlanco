@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { createClient, Entry } from 'contentful';
+import { createClient } from 'contentful';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +18,14 @@ export class ProductosService {
     return this.client.getEntries({
       content_type: 'product',
       // order: 'fields.orden' // opcional: ordena por campo
+    });
+  }
+
+  // Obtener todos de una coleccion
+  getProductosColeccion(coleccion: string) {
+    return this.client.getEntries({
+      content_type: 'product',
+      'fields.productColeccion': coleccion
     });
   }
 

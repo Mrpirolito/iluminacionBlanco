@@ -1,0 +1,15 @@
+<!-- TODO BOTON DE VOLVER A LA VISTA ANTERIOR -->
+
+<div class="details-container" *ngIf="product">
+
+  <div class="details-left">
+    <h2>{{ product.fields.productName }}</h2>
+    <p><strong>Colección:</strong> {{ product.fields.productColeccion }}</p>
+    <p>{{ product.fields.productDescription }}</p>
+  </div>
+
+  <div class="details-right">
+    <img [src]="'https:' + product.fields.productImage.fields.file.url" alt="">
+  </div>
+
+</div>

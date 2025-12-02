@@ -1,0 +1,17 @@
+.details-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* mantiene arriba ambos */
+  gap: 40px;               /* separación */
+  padding: 20px;
+}
+
+.details-left {
+  flex: 1;                 /* ocupa el espacio disponible */
+}
+
+.details-right img {
+  max-width: 350px;        /* controla tamaño */
+  height: auto;
+  border-radius: 10px;     /* opcional */
+}
