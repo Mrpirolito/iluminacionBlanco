@@ -1,15 +1,24 @@
-<!-- TODO BOTON DE VOLVER A LA VISTA ANTERIOR -->
+<div class="details-page" *ngIf="product">
 
-<div class="details-container" *ngIf="product">
+  <div class="details-container">
 
-  <div class="details-left">
-    <h2>{{ product.fields.productName }}</h2>
-    <p><strong>Colección:</strong> {{ product.fields.productColeccion }}</p>
-    <p>{{ product.fields.productDescription }}</p>
-  </div>
+    <div class="details-left">
+      <div class="title-wrap">
+        <a routerLink="/products" class="back-btn" aria-label="Volver a productos" title="Volver a productos">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <h2>{{ product.fields.productName }}</h2>
+      </div>
+      <p><strong>Colección:</strong> {{ product.fields.productColeccion }}</p>
+      <p>{{ product.fields.productDescription }}</p>
+    </div>
 
-  <div class="details-right">
-    <img [src]="'https:' + product.fields.productImage.fields.file.url" alt="">
+    <div class="details-right">
+      <img [src]="'https:' + product.fields.productImage.fields.file.url" alt="">
+    </div>
+
   </div>
 
 </div>

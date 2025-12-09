@@ -1,13 +1,16 @@
 .details-container {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start; /* mantiene arriba ambos */
+  justify-content: center;
+  align-items: center;
   gap: 40px;               /* separación */
   padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .details-left {
   flex: 1;                 /* ocupa el espacio disponible */
+  position: relative;
 }
 
 .details-right img {
@@ -15,3 +18,96 @@
   height: auto;
   border-radius: 10px;     /* opcional */
 }
+
+/* Center text and image similar to Home */
+.details-left {
+  flex: 1;
+}
+
+.details-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Title wrapper so back button can sit above the heading */
+.title-wrap {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+/* Back button when positioned over the title */
+.title-wrap .back-btn {
+  position: absolute;
+  top: -45px;
+  left: 10%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.95);
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  color: #222;
+  text-decoration: none;
+  border: 1px solid rgba(0,0,0,0.06);
+  z-index: 60;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.title-wrap .back-btn:hover {
+  transform: translateX(-50%) translateX(-2px);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.16);
+}
+
+.title-wrap .back-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+@media (max-width: 880px) {
+  .details-container {
+    flex-direction: column;
+    gap: 18px;
+    padding: 16px;
+  }
+
+  .details-right img {
+    max-width: 90%;
+    width: 320px;
+    height: auto;
+  }
+
+  .back-btn {
+    top: 12px;
+    left: 12px;
+  }
+}
+
+/* Page wrapper to position the back button */
+.details-page {
+  position: relative;
+}
+
+/* Back button (top-left) */
+/* legacy: keep back-btn styles minimal when outside title-wrap (fallback) */
+.back-btn {
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.95);
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  color: #222;
+  text-decoration: none;
+  border: 1px solid rgba(0,0,0,0.06);
+  z-index: 60;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.back-btn svg { width: 18px; height: 18px; }
