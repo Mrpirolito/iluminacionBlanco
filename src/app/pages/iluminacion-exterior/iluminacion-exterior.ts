@@ -5,12 +5,12 @@ import { ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-productos',
-  templateUrl: './productos.html',
-  styleUrls: ['./productos.css'],
+  selector: 'app-iluminacion-exterior',
+  templateUrl: './iluminacion-exterior.html',
+  styleUrls: ['./iluminacion-exterior.css'],
   imports: [CommonModule]
 })
-export class Productos implements OnInit {
+export class IluminacionExterior implements OnInit {
 
   productos: any[] = [];
 
@@ -20,15 +20,15 @@ export class Productos implements OnInit {
             ) {}
 
   ngOnInit() {
-    this.productosService.getProductosColeccion("Lamparas de pie")
+    this.productosService.getProductosColeccion("Lamparas de exterior") // Cambiado para esta categoría
       .then((res: { items: any[]; }) => {
         console.log(res)
         this.productos = res.items;
-        this.cdr.detectChanges(); // 👈 fuerza actualización de la vista
+        this.cdr.detectChanges();
       });
   }
 
   goToProductDetails(id: string) {
-    this.router.navigate(['/products', id]);
+    this.router.navigate(['/iluminacion-exterior', id]);
   }
 }

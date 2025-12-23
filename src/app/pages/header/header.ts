@@ -16,7 +16,7 @@ export class Header implements AfterViewInit {
   navItems = [
     { label: 'Interior', href: '#interior' },
     { label: 'Exterior', href: '#exterior' },
-    { label: 'Ventiladores', href: '#ventiladores' },
+    { label: 'Servicios', href: '#servicios' },
     { label: 'Sobre nosotros', href: '/contact', router: true }
   ];
 
