@@ -4,7 +4,7 @@
             <div class="hero-content">
                 <h1>Elige nuestras lámparas y haz que tu interior sea único.</h1>
                 <p>Iluminación de excelente diseño para tu hogar y oficina.<br>Nuestras lámparas de alta calidad modernizarán tu espacio.</p>
-                <a href="#colecciones" class="cta-button">Explora nuestras colecciones</a>
+                <a class="cta-button" routerLink="/products" (click)="selectCategory('Todos')" style="cursor: pointer;">Explora nuestros productos</a>
             </div>
         </div>
     </section>
@@ -12,31 +12,30 @@
     <section id="departamentos">
         <div class="section-header">
             <h2>Comprar por departamentos</h2>
-            <a href="#ver-todo" class="view-all-link">Ver todo ↗</a>
         </div>
         <div class="category-gallery">
-            <!-- Categoría 1 -->
-            <div class="category-card" routerLink="/products" style="cursor: pointer;">
+                        <!-- Categoría 1 -->
+            <div class="category-card" routerLink="/products" (click)="selectCategory('Lámparas de pie')" style="cursor: pointer;">
                 <img src="images/lampara-pie.jpg" alt="Lámparas de pie">
                 <h3>Lámparas de pie</h3>
             </div>
 
             <!-- Categoría 2 -->
-            <div class="category-card" routerLink="/iluminacion-interior" style="cursor: pointer;">
+            <div class="category-card" routerLink="/products" (click)="selectCategory('Lámpara colgante')" style="cursor: pointer;">
                 <img src="images/iluminacion-interior.jpg" alt="Iluminación interior">
-                <h3>Iluminación interior</h3>
+                <h3>Lámpara colgante</h3>
             </div>
 
             <!-- Categoría 3 -->
-            <div class="category-card" routerLink="/iluminacion-pared" style="cursor: pointer;">
+            <div class="category-card" routerLink="/products" (click)="selectCategory('Iluminación de pared')" style="cursor: pointer;">
                 <img src="images/iluminacion-pared.jpg" alt="Iluminación de pared">
                 <h3>Iluminación de pared</h3>
             </div>
 
             <!-- Categoría 4 -->
-            <div class="category-card" routerLink="/iluminacion-exterior" style="cursor: pointer;">
+            <div class="category-card" routerLink="/products" (click)="selectCategory('Lámpara de Escritorio')" style="cursor: pointer;">
                 <img src="images/iluminacion-exterior.jpg" alt="Iluminación exterior en una tienda de campaña">
-                <h3>Iluminación exterior</h3>
+                <h3>Lámpara de Escritorio</h3>
             </div>
         </div>
     </section>
@@ -44,30 +43,22 @@
 
         <!-- Secciones añadidas: Selecciones populares + Paneles promocionales -->
         <section class="popular-section">
-            <div class="popular-header">
-                <h2>Selecciones populares</h2>
-                <a class="view-all-link" href="#ver-todo">Ver todo ↗</a>
-            </div>
 
-            <div class="product-grid">
-                <div class="product-card">
-                    <img src="images/FOLLOWME.jpg" alt="Lámpara de mesa Follow Me" style="object-fit: fill;">
-                    <h3>Lámpara de mesa Follow Me</h3>
+            <!-- Si hay productos populares aparecen -->
+            <div class="product-grid" *ngIf="productosPopulares.length != 0">
+                <div class="popular-header">
+                    <h2>Selecciones populares</h2>
                 </div>
-
-                <div class="product-card">
-                    <img src="images/NANS.jpg" alt="Lámpara de techo">
-                    <h3>Lámpara de techo Nans PF:80</h3>
-                </div>
-
-                <div class="product-card">
-                    <img src="images/12.jpg" alt="Escritorio ligero">
-                    <h3>Trio Lighting Stream Lámpara de sobremesa</h3>
+                <div class="producto" *ngFor="let p of productosPopulares" (click)="goToProductDetails(p.sys.id)"> 
+                    <div class="img-wrapper">
+                    <img [src]="'https:' + p.fields.productImage.fields.file.url" />
+                    </div>
+                    <h3>{{ p.fields.productName }}</h3>
                 </div>
             </div>
 
             <div class="promo-panels">
-                <a class="promo-panel promo-left" href="/interior">
+                <a class="promo-panel promo-left" routerLink="/products" (click)="selectCategory('Lamparas de interior')" style="cursor: pointer;">
                     <img src="images/iluminacion interior.jpg" alt="Interior promo">
                     <div class="promo-overlay">
                         <h3>Cada hogar merece una mejor iluminación</h3>
@@ -76,7 +67,7 @@
                     </div>
                 </a>
 
-                <a class="promo-panel promo-right" href="/exterior">
+                <a class="promo-panel promo-right" routerLink="/products" (click)="selectCategory('Lamparas de exterior')" style="cursor: pointer;">
                     <img src="images/iluminacion exterior.jpg" alt="Exterior promo">
                     <div class="promo-overlay">
                         <h3>Cada exterior merece una mejor iluminación</h3>

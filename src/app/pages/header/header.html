@@ -2,7 +2,7 @@
     <div class="header-inner">
         <div class="logo">
             <a routerLink="/" class="logo-link">
-                <strong>Iluminacion electricidad blanco</strong>
+                <strong>Iluminacion Electricidad Blanco</strong>
             </a>
         </div>
 
@@ -38,8 +38,11 @@
   <button class="close-btn" (click)="toggleMenu()">✕</button>
 
   <a routerLink="/" (click)="toggleMenu()">Inicio</a>
-  <a routerLink="/interior" (click)="toggleMenu()">Interior</a>
-  <a routerLink="/exterior" (click)="toggleMenu()">Exterior</a>
+  <a routerLink="/products" (click)="selectCategory('Lamparas de Interior'); toggleMenu()">Interior</a>
+  <a routerLink="/products" (click)="selectCategory('Lamparas de Exterior'); toggleMenu()">Exterior</a>
   <a routerLink="/servicios" (click)="toggleMenu()">Servicios</a>
   <a routerLink="/contact" (click)="toggleMenu()">Sobre nosotros</a>
 </div>
+
+<!-- Overlay para el fondo oscuro -->
+<div class="overlay" [class.open]="menuOpen" (click)="toggleMenu()"></div>

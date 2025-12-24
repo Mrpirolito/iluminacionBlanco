@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ProductosService } from '../../services/productos';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-productos',
@@ -10,9 +11,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./productos.css'],
   imports: [CommonModule]
 })
-export class Productos implements OnInit {
+export class Productos implements OnInit, OnDestroy {
 
   productos: any[] = [];
+  private categorySubscription: Subscription | undefined;
 
   constructor(private productosService: ProductosService,
               private cdr: ChangeDetectorRef,
@@ -20,15 +22,38 @@ export class Productos implements OnInit {
             ) {}
 
   ngOnInit() {
-    this.productosService.getProductosColeccion("Lamparas de pie")
-      .then((res: { items: any[]; }) => {
-        console.log(res)
-        this.productos = res.items;
-        this.cdr.detectChanges(); // 👈 fuerza actualización de la vista
-      });
+    this.categorySubscription = this.productosService.selectedCategory$.subscribe(category => {
+      if (category === 'Todos') {
+        this.productosService.getProductos()
+        .then((res: { items: any[]; }) => {
+          console.log(`Cargando productos para: ${category}`, res);
+          this.productos = res.items;
+          this.cdr.detectChanges();
+        });
+    } else {
+      this.productosService.getProductosColeccion(category)
+        .then((res: { items: any[]; }) => {
+          console.log(`Cargando productos para: ${category}`, res);
+          this.productos = res.items;
+          this.cdr.detectChanges();
+        });
+    }
+    });
   }
 
-  goToProductDetails(id: string) {
+  ngOnDestroy() {
+    if (this.categorySubscription) {
+      this.categorySubscription.unsubscribe();
+    }
+  }
+
+    goToProductDetails(id: string) {
     this.router.navigate(['/products', id]);
   }
+
+  // Nuevo método para cambiar la categoría desde el sidebar de esta página
+  setCategory(category: string) {
+    this.productosService.setSelectedCategory(category);
+  }
 }
+

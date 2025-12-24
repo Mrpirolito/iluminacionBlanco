@@ -1,10 +1,15 @@
 import { Injectable } from '@angular/core';
 import { createClient } from 'contentful';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductosService {
+
+  // --- Restaurando BehaviorSubject ---
+  private selectedCategory = new BehaviorSubject<string>('Lámparas de pie');
+  selectedCategory$ = this.selectedCategory.asObservable();
 
   private client = createClient({
     space: 'frd9fa5cfgsv',
@@ -12,6 +17,11 @@ export class ProductosService {
   });
 
   constructor() {}
+
+  setSelectedCategory(category: string) {
+    this.selectedCategory.next(category);
+  }
+  // ------------------------------------
 
   // Obtener todos los productos
   getProductos() {

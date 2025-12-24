@@ -1,6 +1,8 @@
 import { Component, HostListener, AfterViewInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router'; // Importar Router
 import { CommonModule } from '@angular/common';
+import { ProductosService } from '../../services/productos';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -12,12 +14,12 @@ import { CommonModule } from '@angular/common';
 export class Header implements AfterViewInit {
   menuOpen = false;
 
-  // structured nav items so we can measure and overflow them
+  // Actualizamos la estructura de navItems
   navItems = [
-    { label: 'Interior', href: '#interior' },
-    { label: 'Exterior', href: '#exterior' },
-    { label: 'Servicios', href: '#servicios' },
-    { label: 'Sobre nosotros', href: '/contact', router: true }
+    { label: 'Interior', href: '/products', category: 'Lamparas de interior', router: true},
+    { label: 'Exterior', href: '/products', category: 'Lamparas de exterior', router: true },
+    { label: 'Servicios', href: '/servicios', router: true },
+    { label: 'Sobre nosotros', href: '/contact', router: true },
   ];
 
   visibleItems = [...this.navItems];
@@ -26,12 +28,36 @@ export class Header implements AfterViewInit {
   @ViewChild('navContainer', { static: true }) navContainer!: ElementRef<HTMLElement>;
   @ViewChild('measure', { static: true }) measure!: ElementRef<HTMLElement>;
 
-  constructor(private renderer: Renderer2) {}
+  constructor(
+    private renderer: Renderer2, 
+    private productosService: ProductosService,
+    private router: Router
+  ) {}
+
+  // Nuevo método de navegación unificado
+  navigate(path: string, category?: string) {
+    if (category) {
+      this.productosService.setSelectedCategory(category);
+    }
+    this.router.navigate([path]);
+    
+    // Si el menú está abierto, lo cerramos
+    if (this.menuOpen) {
+      this.toggleMenu();
+    }
+  }
 
   toggleMenu() {
     this.menuOpen = !this.menuOpen;
   }
 
+
+  // Nuevo método para establecer la categoría desde el header
+  selectCategory(category: string) {
+    this.productosService.setSelectedCategory(category);
+  }
+
+  // Mantenemos toda la lógica del menú responsive
   ngAfterViewInit(): void {
     // initial layout
     setTimeout(() => this.updateNav(), 0);
@@ -45,7 +71,6 @@ export class Header implements AfterViewInit {
     }
   }
 
-  // Replaces previous checkScreenSize behaviour used by template
   checkScreenSize() {
     return window.innerWidth <= 768;
   }
@@ -54,7 +79,6 @@ export class Header implements AfterViewInit {
     const container = this.navContainer.nativeElement;
     const measureEl = this.measure.nativeElement;
 
-    // clear measure element and render all items for width measurement
     measureEl.innerHTML = '';
     const itemEls: HTMLElement[] = [];
     this.navItems.forEach(item => {
@@ -66,7 +90,7 @@ export class Header implements AfterViewInit {
       itemEls.push(li as HTMLElement);
     });
 
-    const moreButtonWidth = 70; // reserve width for "Más" button approximate
+    const moreButtonWidth = 70; 
     const available = container.clientWidth - moreButtonWidth;
 
     let used = 0;
@@ -89,3 +113,4 @@ export class Header implements AfterViewInit {
     }
   }
 }
+

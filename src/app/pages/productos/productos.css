@@ -1,3 +1,51 @@
+/* Estructura de la página con Sidebar */
+.page-container {
+  display: flex;
+  align-items: flex-start; /* Clave: alinea los elementos arriba */
+  gap: 30px;
+  padding: 20px;
+}
+
+/* Sidebar Fijo (Sticky) */
+.sidebar-sticky {
+  width: 240px;
+  flex-shrink: 0; /* Evita que se encoja */
+  
+  /* La magia del Sticky */
+  position: -webkit-sticky;
+  position: sticky;
+  top: 130px; /* Se pegará a 130px del top. Ajusta este valor (altura de tu header + un margen) */
+
+  /* Estilos para que se vea bien */
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.sidebar-sticky h3 {
+  margin-top: 0;
+}
+
+.sidebar-sticky ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar-sticky li {
+  padding: 8px 0;
+  cursor: pointer;
+  border-bottom: 1px solid #eee;
+}
+.sidebar-sticky li:hover {
+  color: #007bff;
+}
+
+/* Contenido Principal */
+.main-content {
+  flex-grow: 1;
+}
+
+/* Tus estilos existentes */
 .productos-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));

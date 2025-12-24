@@ -1,10 +1,27 @@
-<h1 style="padding-left: 20px;">Lámparas de pie</h1>
+<div class="page-container">
 
-<div class="productos-grid">
-  <div class="producto" *ngFor="let p of productos" (click)="goToProductDetails(p.sys.id)"> 
-    <div class="img-wrapper">
-      <img [src]="'https:' + p.fields.productImage.fields.file.url" />
+  <!-- Columna del Sidebar
+  <aside class="sidebar-sticky">
+    <h3>Categorías</h3>
+    <ul>
+      <li (click)="setCategory('Lámparas de pie')">Lámparas de pie</li>
+      <li (click)="setCategory('Lámpara colgante')">Lámpara colgante</li>
+      <li (click)="setCategory('Iluminación de pared')">Iluminación de pared</li>
+      <li (click)="setCategory('Lámpara de Escritorio')">Lámpara de Escritorio</li>
+    </ul>
+  </aside> -->
+
+  <!-- Columna del Contenido Principal -->
+  <main class="main-content">
+    <h1 style="padding-left: 20px;">Productos</h1>
+    <div class="productos-grid">
+      <div class="producto" *ngFor="let p of productos" (click)="goToProductDetails(p.sys.id)"> 
+        <div class="img-wrapper">
+          <img [src]="'https:' + p.fields.productImage.fields.file.url" />
+        </div>
+        <h3>{{ p.fields.productName }}</h3>
+      </div>
     </div>
-    <h3>{{ p.fields.productName }}</h3>
-  </div>
+  </main>
+
 </div>

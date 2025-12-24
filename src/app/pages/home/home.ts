@@ -1,20 +1,30 @@
 import { Component, AfterViewInit, HostListener, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { ProductosService } from '../../services/productos'; // Importamos el servicio
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
-  imports: [RouterModule],
+  imports: [RouterModule, CommonModule],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
 export class Home implements AfterViewInit {
   @ViewChild('heroRef', { static: true }) heroRef!: ElementRef<HTMLElement>;
+  productosPopulares: any[] = [];
 
-  constructor(private renderer: Renderer2) {}
+  // Inyectamos el servicio en el constructor
+  constructor(private renderer: Renderer2, private productosService: ProductosService, private router: Router) {}
 
   ngAfterViewInit(): void {
     // set an initial position
     this.updateHeroBackground();
+  }
+
+  // Nuevo método para establecer la categoría
+  selectCategory(category: string) {
+    this.productosService.setSelectedCategory(category);
   }
 
   @HostListener('window:scroll')
@@ -47,6 +57,10 @@ export class Home implements AfterViewInit {
     } catch (e) {
       // defensive: ignore if something goes wrong
     }
+  }
+
+  goToProductDetails(id: string) {
+    this.router.navigate(['/products', id]);
   }
 
 }

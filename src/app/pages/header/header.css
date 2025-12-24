@@ -192,24 +192,51 @@ nav {
 
 /* Sidebar */
 .sidebar {
-    position: fixed;
+    position: fixed; /* Clave: se posiciona relativo a la ventana del navegador */
     top: 0;
     left: 0;
-    width: 250px;
+    width: 280px; /* Ancho del menú */
     height: 100%;
     background-color: white;
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    
+    /* Oculto por defecto, movido fuera de la pantalla */
     transform: translateX(-100%);
-    transition: transform 0.3s ease;
-    z-index: 999;
+    transition: transform 0.3s ease-in-out;
+    
+    z-index: 1001; /* Z-index alto para que esté por encima de todo */
     padding-top: 20px;
-    display: none;
+    display: flex;
     flex-direction: column;
-    gap: 0;
+    overflow-y: auto; /* <-- AÑADIDO: Permite el scroll DENTRO del sidebar */
 }
 
+/* Cuando el sidebar tiene la clase .open, se muestra */
 .sidebar.open {
     transform: translateX(0);
+}
+
+/* Overlay (fondo oscuro) */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    
+    /* Oculto por defecto */
+    opacity: 0;
+    visibility: hidden;
+    
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    z-index: 1000; /* Justo debajo del sidebar */
+}
+
+/* Cuando el overlay tiene la clase .open, se muestra */
+.overlay.open {
+    opacity: 1;
+    visibility: visible;
 }
 
 .sidebar a {

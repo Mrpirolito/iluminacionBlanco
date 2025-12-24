@@ -209,8 +209,7 @@ html, body {
     width: 100%;
     height: auto;
     /* Ensure CSS transforms work properly */
-    transform: translateZ(0);
-    -webkit-transform: translateZ(0);
+    
     
 }
 
