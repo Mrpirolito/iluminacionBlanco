@@ -3,22 +3,20 @@
   <p class="subtitulo">Ofrecemos soluciones personalizadas para tus necesidades de iluminación.</p>
 
   <div class="servicios-grid">
-    <!-- Servicio 1: Arreglos -->
-    <a routerLink="/servicios/arreglos-lamparas" class="servicio-card">
-      <img src="images/arreglos.jpg" alt="Herramientas para arreglar lámparas">
+    <!-- Usamos un *ngFor para crear las tarjetas dinámicamente -->
+    <a *ngFor="let servicio of servicios" 
+       [routerLink]="servicio.enlace" 
+       class="servicio-card"
+       (mouseover)="onMouseOver(servicio)"
+       (mouseout)="onMouseOut(servicio)">
+      
+      <!-- La imagen ahora es dinámica -->
+      <img [src]="servicio.imgActual" [alt]="servicio.titulo">
+      
       <div class="servicio-info">
-        <h3>Arreglos de Lámparas</h3>
-        <p>Devolvemos la vida a tus lámparas favoritas. Reparaciones eléctricas, restauración de piezas y más.</p>
-        <span>Ver detalles →</span>
-      </div>
-    </a>
-
-    <!-- Servicio 2: Pantallas a Medida -->
-    <a routerLink="/servicios/pantallas-a-medida" class="servicio-card">
-      <img src="images/pantallas.jpg" alt="Telas y materiales para pantallas de lámparas">
-      <div class="servicio-info">
-        <h3>Pantallas a Medida</h3>
-        <p>Diseña con nosotros la pantalla perfecta para tu espacio. Elegimos juntos telas, formas y tamaños.</p>
+        <!-- El contenido también es dinámico -->
+        <h3>{{ servicio.titulo }}</h3>
+        <p>{{ servicio.descripcion }}</p>
         <span>Ver detalles →</span>
       </div>
     </a>

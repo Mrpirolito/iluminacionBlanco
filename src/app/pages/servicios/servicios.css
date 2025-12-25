@@ -23,7 +23,7 @@ h1 {
 }
 
 .servicio-card {
-  background-color: #fff;
+  position: relative; /* Contenedor de referencia para el texto */
   border-radius: 8px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.05);
   text-decoration: none;
@@ -40,13 +40,28 @@ h1 {
 
 .servicio-card img {
   width: 100%;
-  height: 220px;
-  object-fit: cover;
+  height: 350px; /* Mantenemos la altura para un diseño consistente */
+  object-fit: fill; /* La magia está aquí: la imagen se ajusta sin cortarse */
+  padding: 10px; /* Añade un poco de aire alrededor de la imagen */
+  box-sizing: border-box; /* Asegura que el padding no afecte el tamaño total */
+  transition: transform 0.3s ease; /* Efecto de zoom suave al pasar el ratón */
+}
+
+.servicio-card:hover img {
+  transform: scale(1.05); /* Zoom a la imagen */
 }
 
 .servicio-info {
+  position: absolute; /* Se posiciona sobre la imagen */
+  bottom: 0;
+  left: 0;
+  right: 0;
   padding: 25px;
   text-align: left;
+  color: #fff; /* Texto blanco para que sea legible */
+
+  /* Gradiente para asegurar legibilidad */
+  background: linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0));
 }
 
 .servicio-info h3 {
@@ -55,7 +70,7 @@ h1 {
 }
 
 .servicio-info p {
-  color: #555;
+  color: #eee; /* Un blanco un poco más suave para la descripción */
   line-height: 1.6;
 }
 
@@ -63,7 +78,8 @@ h1 {
   display: inline-block;
   margin-top: 15px;
   font-weight: bold;
-  color: #007bff;
+  color: #fff; /* Enlace en blanco */
+  text-decoration: underline; /* Subrayado para que parezca un enlace */
 }
 
 /* Responsive */
