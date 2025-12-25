@@ -1,0 +1,30 @@
+<div class="main-content" style="padding: 20px;">
+  
+  <!-- Bloque que se muestra si la búsqueda ha terminado -->
+  <div *ngIf="busquedaRealizada">
+    
+    <!-- Caso 1: Se encontraron productos -->
+    <div *ngIf="productos.length > 0; else noEncontrado">
+      <h1>Resultados para: "{{ query }}"</h1>
+      <div class="productos-grid">
+        <div class="producto" *ngFor="let p of productos" (click)="goToProductDetails(p.sys.id)"> 
+          <div class="img-wrapper">
+            <img [src]="p.fields.productImage ? 'https:' + p.fields.productImage.fields.file.url : '/images/placeholder.png'" [alt]="p.fields.productName" />
+          </div>
+          <h3>{{ p.fields.productName }}</h3>
+        </div>
+      </div>
+    </div>
+
+    <!-- Caso 2: No se encontraron productos -->
+    <ng-template #noEncontrado>
+      <div class="no-encontrado">
+        <h2>No se encontraron productos para "{{ query }}"</h2>
+        <p>Prueba a buscar con otros términos o explora nuestras categorías.</p>
+        <a routerLink="/" class="cta-button">Volver al inicio</a>
+      </div>
+    </ng-template>
+
+  </div>
+
+</div>

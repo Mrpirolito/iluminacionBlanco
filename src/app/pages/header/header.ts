@@ -16,7 +16,7 @@ export class Header implements AfterViewInit {
 
   // Actualizamos la estructura de navItems
   navItems = [
-    { label: 'Interior', href: '/products', category: 'Lamparas de interior', router: true},
+    { label: 'Interior', href: '/products', category: 'Lamparas de interior', router: true },
     { label: 'Exterior', href: '/products', category: 'Lamparas de exterior', router: true },
     { label: 'Servicios', href: '/servicios', router: true },
     { label: 'Sobre nosotros', href: '/contact', router: true },
@@ -44,6 +44,15 @@ export class Header implements AfterViewInit {
     // Si el menú está abierto, lo cerramos
     if (this.menuOpen) {
       this.toggleMenu();
+    }
+  }
+
+  // Método para el buscador
+  onSearch(event: any) {
+    const query = event.target.value.trim(); // Usamos trim() para limpiar espacios
+    if (query) { // Solo buscamos si hay texto
+      this.router.navigate(['/search'], { queryParams: { q: query } });
+      event.target.value = ''; // Limpiamos el input
     }
   }
 

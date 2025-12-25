@@ -9,18 +9,18 @@
         <nav>
             <div class="search-box">
                 <img src="/images/Lupa.png" alt="Buscar" class="search-icon">
-                <input type="text" placeholder="Buscar productos..." class="search-input">
+                <input type="text" placeholder="Buscar productos..." class="search-input" (keyup.enter)="onSearch($event)">
             </div>
             <ul #navContainer class="nav-desktop" *ngIf="!checkScreenSize()">
                 <li *ngFor="let item of visibleItems">
-                    <a [routerLink]="item.router ? item.href : null" [attr.href]="!item.router ? item.href : null">{{item.label}}</a>
+                    <a [routerLink]="item.href" (click)="navigate(item.href, item.category)">{{item.label}}</a>
                 </li>
 
                 <!-- More dropdown when items overflow -->
                 <li *ngIf="overflowItems.length" class="more">
                     <button class="more-btn">Más ▾</button>
                     <ul class="more-menu">
-                        <li *ngFor="let it of overflowItems"><a [routerLink]="it.router ? it.href : null" [attr.href]="!it.router ? it.href : null">{{it.label}}</a></li>
+                        <li *ngFor="let it of overflowItems"><a [routerLink]="it.href" (click)="navigate(it.href, it.category)">{{it.label}}</a></li>
                     </ul>
                 </li>
             </ul>
@@ -38,8 +38,8 @@
   <button class="close-btn" (click)="toggleMenu()">✕</button>
 
   <a routerLink="/" (click)="toggleMenu()">Inicio</a>
-  <a routerLink="/products" (click)="selectCategory('Lamparas de Interior'); toggleMenu()">Interior</a>
-  <a routerLink="/products" (click)="selectCategory('Lamparas de Exterior'); toggleMenu()">Exterior</a>
+  <a routerLink="/products" (click)="selectCategory('Lamparas de interior'); toggleMenu()">Interior</a>
+  <a routerLink="/products" (click)="selectCategory('Lamparas de exterior'); toggleMenu()">Exterior</a>
   <a routerLink="/servicios" (click)="toggleMenu()">Servicios</a>
   <a routerLink="/contact" (click)="toggleMenu()">Sobre nosotros</a>
 </div>
