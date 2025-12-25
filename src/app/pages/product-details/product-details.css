@@ -68,6 +68,7 @@
   height: 18px;
 }
 
+/* Responsive adjustments for mobile */
 @media (max-width: 880px) {
   .details-container {
     flex-direction: column;
@@ -81,9 +82,19 @@
     height: auto;
   }
 
-  .back-btn {
-    top: 12px;
-    left: 12px;
+  /* Convertimos el contenedor del título en un layout Flex */
+  .title-wrap {
+    display: flex;
+    align-items: center; /* Centramos verticalmente el botón y el título */
+    gap: 15px; /* Espacio entre el botón y el título */
+    margin-bottom: 20px; /* Espacio extra debajo */
+  }
+
+  /* El botón ahora es un elemento flex, ya no es absoluto */
+  .title-wrap .back-btn {
+    position: static; /* Reseteamos la posición a la normal */
+    transform: none;   /* Reseteamos la transformación */
+    flex-shrink: 0;    /* Evita que el botón se encoja */
   }
 }
 

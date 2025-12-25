@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common'; // Importamos CommonModule
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-servicios',
   standalone: true,
-  imports: [RouterModule, CommonModule], // Lo añadimos a los imports
+  imports: [RouterModule, CommonModule],
   templateUrl: './servicios.html',
   styleUrls: ['./servicios.css']
 })
@@ -26,8 +26,8 @@ export class Servicios {
       descripcion: 'Diseña con nosotros la pantalla perfecta para tu espacio. Elegimos juntos telas, formas y tamaños.',
       enlace: '/servicios/pantallas-a-medida',
       imgNormal: 'images/pantallas a medidas.png',
-      imgHover: 'images/pantalla.jpg', // Imagen al pasar el ratón
-      imgActual: 'images/pantallas a medidas.png' // Imagen que se muestra actualmente
+      imgHover: 'images/pantalla.jpg',
+      imgActual: 'images/pantallas a medidas.png'
     }
   ];
 
