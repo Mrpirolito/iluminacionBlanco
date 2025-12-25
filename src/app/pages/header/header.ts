@@ -85,6 +85,9 @@ export class Header implements AfterViewInit {
   }
 
   private updateNav() {
+    if (!this.navContainer || !this.measure) {
+      return;
+    }
     const container = this.navContainer.nativeElement;
     const measureEl = this.measure.nativeElement;
 
