@@ -4,9 +4,9 @@
 
     <div class="details-left">
       <div class="title-wrap">
-        <a routerLink="/products" class="back-btn">
+        <button (click)="goBack()" class="back-btn">
           ←
-        </a>
+        </button>
         <h2>{{ product.fields.productName }}</h2>
       </div>
 

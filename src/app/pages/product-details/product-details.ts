@@ -3,6 +3,7 @@ import { ProductosService } from '../../services/productos';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-product-details',
@@ -18,7 +19,8 @@ export class ProductDetails implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private productosService: ProductosService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private location: Location
   ) {}
 
   ngOnInit() {
@@ -40,4 +42,7 @@ export class ProductDetails implements OnInit {
     this.currentImageIndex = index;
   }
 
+  goBack() {
+    this.location.back();
+  }
 }
