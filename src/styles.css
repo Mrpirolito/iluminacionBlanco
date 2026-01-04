@@ -288,3 +288,41 @@ body { touch-action: pan-x pan-y; }
 @media (max-width: 480px) {
     .whatsapp-fab { width: 48px; height: 48px; right: 14px; bottom: 14px; background-size: 60% 60%; }
 }
+
+.no-encontrado {
+  position: fixed;       /* se posiciona respecto a la pantalla */
+  inset: 0;              /* top:0; right:0; bottom:0; left:0 */
+  display: flex;
+  flex-direction: column; /* apilar h2 -> p -> a */
+  justify-content: center; /* centrar verticalmente */
+  align-items: center;     /* centrar horizontalmente */
+  text-align: center;      /* alinear texto */
+  padding: 20px;          /* opcional, para que no pegue en los bordes */
+  background: #fff;       /* opcional, para destacar */
+}
+
+.no-encontrado h2 {
+  font-size: 2rem;
+  margin-bottom: 15px;
+}
+
+.no-encontrado p {
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 25px;
+}
+
+.no-encontrado .cta-button {
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #333;
+  padding: 1rem 2rem;
+  text-decoration: none;
+  border-radius: 30px;
+  font-weight: 500;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.no-encontrado .cta-button:hover {
+  background-color: #555;
+}

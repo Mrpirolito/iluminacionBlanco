@@ -2,6 +2,7 @@ import { Component, AfterViewInit, HostListener, ViewChild, ElementRef, Renderer
 import { RouterModule } from '@angular/router';
 import { ProductosService } from '../../services/productos'; // Importamos el servicio
 import { CommonModule } from '@angular/common';
+import { ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -15,7 +16,16 @@ export class Home implements AfterViewInit {
   productosPopulares: any[] = [];
 
   // Inyectamos el servicio en el constructor
-  constructor(private renderer: Renderer2, private productosService: ProductosService, private router: Router) {}
+  constructor(private renderer: Renderer2, 
+              private cdr: ChangeDetectorRef,
+              private productosService: ProductosService, private router: Router) {}
+
+  ngOnInit() {
+    this.productosService.getProductosPopulares().then((res: { items: any[]; }) => {
+          this.productosPopulares = res.items;
+          this.cdr.detectChanges();
+        });
+  }
 
   ngAfterViewInit(): void {
     // set an initial position

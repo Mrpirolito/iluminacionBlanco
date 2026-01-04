@@ -13,6 +13,7 @@ import { RouterModule } from '@angular/router';
 })
 export class ProductDetails implements OnInit {
   product: any;
+  currentImageIndex = 0;
 
   constructor(
     private route: ActivatedRoute,
@@ -34,4 +35,9 @@ export class ProductDetails implements OnInit {
       }
     });
   }
+
+  selectImage(index: number) {
+    this.currentImageIndex = index;
+  }
+
 }

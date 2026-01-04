@@ -17,7 +17,11 @@
     <div class="productos-grid">
       <div class="producto" *ngFor="let p of productos" (click)="goToProductDetails(p.sys.id)"> 
         <div class="img-wrapper">
-          <img [src]="'https:' + p.fields.productImage.fields.file.url" />
+          <img
+            *ngIf="p.fields.productImage?.length"
+            [src]="'https:' + p.fields.productImage[0].fields.file.url"
+            alt="{{ p.fields.productImage[0].fields.title }}"
+          />
         </div>
         <h3>{{ p.fields.productName }}</h3>
       </div>

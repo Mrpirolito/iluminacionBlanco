@@ -4,19 +4,36 @@
 
     <div class="details-left">
       <div class="title-wrap">
-        <a routerLink="/products" class="back-btn" aria-label="Volver a productos" title="Volver a productos">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+        <a routerLink="/products" class="back-btn">
+          ←
         </a>
         <h2>{{ product.fields.productName }}</h2>
       </div>
-      <p><strong>Colección:</strong> {{ product.fields.productColeccion }}</p>
+
+      <p><strong>Colección:</strong> {{ product.fields.productColection }}</p>
       <p>{{ product.fields.productDescription }}</p>
     </div>
 
-    <div class="details-right">
-      <img [src]="'https:' + product.fields.productImage.fields.file.url" alt="">
+    <div class="details-right" *ngIf="product.fields.productImage?.length">
+
+      <!-- Imagen principal -->
+      <div class="main-image">
+        <img
+          [src]="'https:' + product.fields.productImage[currentImageIndex].fields.file.url"
+          alt=""
+        />
+      </div>
+
+      <!-- Miniaturas -->
+      <div class="thumbnails">
+        <img
+          *ngFor="let img of product.fields.productImage; let i = index"
+          [src]="'https:' + img.fields.file.url"
+          [class.active]="i === currentImageIndex"
+          (click)="selectImage(i)"
+        />
+      </div>
+
     </div>
 
   </div>

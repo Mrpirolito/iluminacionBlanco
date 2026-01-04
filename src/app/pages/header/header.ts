@@ -16,8 +16,8 @@ export class Header implements AfterViewInit {
 
   // Actualizamos la estructura de navItems
   navItems = [
-    { label: 'Interior', href: '/products', category: 'Lamparas de interior', router: true },
-    { label: 'Exterior', href: '/products', category: 'Lamparas de exterior', router: true },
+    { label: 'Interior', href: '/products', category: 'Interior', router: true },
+    { label: 'Exterior', href: '/products', category: 'Exterior', router: true },
     { label: 'Servicios', href: '/servicios', router: true },
     { label: 'Sobre nosotros', href: '/contact', router: true },
   ];

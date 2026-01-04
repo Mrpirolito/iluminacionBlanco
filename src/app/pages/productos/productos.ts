@@ -22,6 +22,7 @@ export class Productos implements OnInit, OnDestroy {
             ) {}
 
   ngOnInit() {
+    console.log(`Entrando a lista de productos`)
     this.categorySubscription = this.productosService.selectedCategory$.subscribe(category => {
       if (category === 'Todos') {
         this.productosService.getProductos()

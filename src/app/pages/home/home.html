@@ -15,25 +15,25 @@
         </div>
         <div class="category-gallery">
                         <!-- Categoría 1 -->
-            <div class="category-card" routerLink="/products" (click)="selectCategory('Lámparas de pie')" style="cursor: pointer;">
+            <div class="category-card" routerLink="/products" (click)="selectCategory('De pie')" style="cursor: pointer;">
                 <img src="/images/lampara-pie.jpg" alt="Lámparas de pie">
                 <h3>Lámparas de pie</h3>
             </div>
 
             <!-- Categoría 2 -->
-            <div class="category-card" routerLink="/products" (click)="selectCategory('Lámpara colgante')" style="cursor: pointer;">
+            <div class="category-card" routerLink="/products" (click)="selectCategory('Colgante')" style="cursor: pointer;">
                 <img src="/images/iluminacion-interior.jpg" alt="Iluminación interior">
                 <h3>Lámpara colgante</h3>
             </div>
 
             <!-- Categoría 3 -->
-            <div class="category-card" routerLink="/products" (click)="selectCategory('Iluminación de pared')" style="cursor: pointer;">
+            <div class="category-card" routerLink="/products" (click)="selectCategory('De pared')" style="cursor: pointer;">
                 <img src="/images/iluminacion-pared.jpg" alt="Iluminación de pared">
                 <h3>Iluminación de pared</h3>
             </div>
 
             <!-- Categoría 4 -->
-            <div class="category-card" routerLink="/products" (click)="selectCategory('Lámpara de Escritorio')" style="cursor: pointer;">
+            <div class="category-card" routerLink="/products" (click)="selectCategory('Sobremesa')" style="cursor: pointer;">
                 <img src="/images/iluminacion-exterior.jpg" alt="Iluminación exterior en una tienda de campaña">
                 <h3>Lámpara de Escritorio</h3>
             </div>
@@ -50,15 +50,17 @@
                     <h2>Selecciones populares</h2>
                 </div>
                 <div class="producto" *ngFor="let p of productosPopulares" (click)="goToProductDetails(p.sys.id)"> 
-                    <div class="img-wrapper">
-                    <img [src]="'https:' + p.fields.productImage.fields.file.url" />
-                    </div>
+                    <img
+                        *ngIf="p.fields.productImage?.length"
+                        [src]="'https:' + p.fields.productImage[0].fields.file.url"
+                        alt="{{ p.fields.productImage[0].fields.title }}"
+                    />
                     <h3>{{ p.fields.productName }}</h3>
                 </div>
             </div>
 
             <div class="promo-panels">
-                <a class="promo-panel promo-left" routerLink="/products" (click)="selectCategory('Lamparas de interior')" style="cursor: pointer;">
+                <a class="promo-panel promo-left" routerLink="/products" (click)="selectCategory('Interior')" style="cursor: pointer;">
                     <img src="/images/iluminacion interior.jpg" alt="Interior promo">
                     <div class="promo-overlay">
                         <h3>Cada hogar merece una mejor iluminación</h3>
@@ -67,7 +69,7 @@
                     </div>
                 </a>
 
-                <a class="promo-panel promo-right" routerLink="/products" (click)="selectCategory('Lamparas de exterior')" style="cursor: pointer;">
+                <a class="promo-panel promo-right" routerLink="/products" (click)="selectCategory('Exterior')" style="cursor: pointer;">
                     <img src="/images/iluminacion exterior.jpg" alt="Exterior promo">
                     <div class="promo-overlay">
                         <h3>Cada exterior merece una mejor iluminación</h3>

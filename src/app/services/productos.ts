@@ -8,15 +8,15 @@ import { BehaviorSubject } from 'rxjs';
 export class ProductosService {
 
   // --- Restaurando BehaviorSubject ---
-  private selectedCategory = new BehaviorSubject<string>('Lámparas de pie');
+  private selectedCategory = new BehaviorSubject<string>('De pie');
   selectedCategory$ = this.selectedCategory.asObservable();
 
   private productos: any[] = [];
   private productosLoaded = false;
 
   private client = createClient({
-    space: 'frd9fa5cfgsv',
-    accessToken: '3EVmCK7az5pUtHrGOp7aw7vunkApJWf0fp9np_SwwYo'
+    space: 'oxrryg6fb2im',
+    accessToken: 'ZEwhJNTbs_31vNDJGy-6OBiMgIpIJqOLtLHBAymqIzw'
   });
 
   constructor() {}
@@ -28,28 +28,26 @@ export class ProductosService {
 
   // Obtener todos los productos
   getProductos() {
-    if (this.productosLoaded) {
-      return Promise.resolve({ items: this.productos });
-    } else {
-      return this.client.getEntries({
-        content_type: 'product',
-        // order: 'fields.orden' // opcional: ordena por campo
-      }).then(res => {
-        this.productos = res.items;
-        this.productosLoaded = true;
-        return res;
-      }).catch(error => {
-        console.error('Error cargando productos:', error);
-        throw error;
-      });
-    }
+    return this.client.getEntries({
+      content_type: 'productos',
+      order: ['fields.productName']
+    }).then(res => {
+      console.log("productos: ", res.items)
+      this.productos = res.items;
+      this.productosLoaded = true;
+      return res;
+    }).catch(error => {
+      console.error('Error cargando productos:', error);
+      throw error;
+    });
   }
 
   // Obtener todos de una coleccion
   getProductosColeccion(coleccion: string) {
     return this.client.getEntries({
-      content_type: 'product',
-      'fields.productColeccion': coleccion
+      content_type: 'productos',
+      order: ['fields.productName'],
+      'fields.productColection': coleccion
     });
   }
 
@@ -61,8 +59,23 @@ export class ProductosService {
   // --- NUEVO MÉTODO DE BÚSQUEDA ---
   searchProductosByName(query: string) {
     return this.client.getEntries({
-      content_type: 'product',
+      content_type: 'productos',
+      order: ['fields.productName'],
       'fields.productName[contains]': query
     });
+  }
+
+  getProductosPopulares() {
+    return this.client.getEntries({
+        content_type: 'productos',
+        order: ['fields.productName'],
+        'fields.productPopular': true        
+      }).then(res => {
+        this.productos = res.items;
+        return res;
+      }).catch(error => {
+        console.error('Error cargando productos:', error);
+        throw error;
+      });
   }
 }

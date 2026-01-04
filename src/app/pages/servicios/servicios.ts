@@ -26,7 +26,7 @@ export class Servicios {
       descripcion: 'Diseña con nosotros la pantalla perfecta para tu espacio. Elegimos juntos telas, formas y tamaños.',
       enlace: '/servicios/pantallas-a-medida',
       imgNormal: 'images/pantallas a medidas.png',
-      imgHover: 'images/pantalla.jpg',
+      imgHover: 'images/pantalla.webp',
       imgActual: 'images/pantallas a medidas.png'
     }
   ];

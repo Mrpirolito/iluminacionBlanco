@@ -1,4 +1,4 @@
-<div class="main-content" style="padding: 20px;">
+<div class="main-content">
   
   <!-- Bloque que se muestra si la búsqueda ha terminado -->
   <div *ngIf="busquedaRealizada">
@@ -9,8 +9,12 @@
       <div class="productos-grid">
         <div class="producto" *ngFor="let p of productos" (click)="goToProductDetails(p.sys.id)"> 
           <div class="img-wrapper">
-            <img [src]="p.fields.productImage ? 'https:' + p.fields.productImage.fields.file.url : '/images/placeholder.png'" [alt]="p.fields.productName" />
-          </div>
+          <img
+            *ngIf="p.fields.productImage?.length"
+            [src]="'https:' + p.fields.productImage[0].fields.file.url"
+            alt="{{ p.fields.productImage[0].fields.title }}"
+          />
+        </div>
           <h3>{{ p.fields.productName }}</h3>
         </div>
       </div>
