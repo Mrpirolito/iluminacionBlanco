@@ -129,6 +129,9 @@
   .category-gallery {
     grid-template-columns: repeat(3, 1fr);
   }
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 /* Responsive: mobile landscape */
@@ -137,8 +140,13 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
   }
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
 
-  .category-card img {
+  .category-card img,
+  .product-card img {
     height: 250px;
   }
 }
@@ -149,8 +157,13 @@
     grid-template-columns: 1fr;
     gap: 0.8rem;
   }
+  .product-grid {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+  }
 
-  .category-card img {
+  .category-card img,
+  .product-card img {
     height: 200px;
   }
 }
@@ -172,20 +185,46 @@
 .popular-header .view-all-link { color: #555; text-decoration: none; font-weight: 500; }
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.25rem;
-  margin-bottom: 2rem;
+  /* fixed column width so images remain centered and evenly spaced */
+  grid-template-columns: repeat(2, 220px);
+  gap: 3.1rem; /* slightly larger but consistent */
+  justify-content: center; /* center the whole grid inside its container */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  align-items: start;
+  justify-items: space-evenly;
+  max-width: 1100px; /* keep gallery a centered column block */
+  margin: 0 auto;
 }
 .product-card {
-  background: #fff;
-  border-radius: 6px;
-  padding: 14px;
-  text-align: left;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.04);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  transform: translateZ(0);
+  width: 220px;
 }
-.product-card img { width: 100%; height: 220px; object-fit: cover; border-radius: 6px; }
-.product-card h3 { font-size: 1rem; margin: 0.6rem 0 0.4rem; color: #333; }
-.product-card .price { color: #777; font-weight: 600; }
+
+.product-card img {
+  /* Portrait (vertical) images, smaller */
+  width: 220px;
+  height: 320px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin: 0 auto;
+  transform: translateZ(0);
+  box-sizing: border-box;
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
+}
+
+.product-card h3 {
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 0;
+  text-align: center;
+  width: 100%;
+}
 
 .promo-panels {
   display: grid;

@@ -45,11 +45,11 @@
         <section class="popular-section">
 
             <!-- Si hay productos populares aparecen -->
+            <div class="popular-header" *ngIf="productosPopulares.length != 0">
+                <h2>Selecciones populares</h2>
+            </div>
             <div class="product-grid" *ngIf="productosPopulares.length != 0">
-                <div class="popular-header">
-                    <h2>Selecciones populares</h2>
-                </div>
-                <div class="producto" *ngFor="let p of productosPopulares" (click)="goToProductDetails(p.sys.id)"> 
+                <div class="product-card" *ngFor="let p of productosPopulares" (click)="goToProductDetails(p.sys.id)"> 
                     <img
                         *ngIf="p.fields.productImage?.length"
                         [src]="'https:' + p.fields.productImage[0].fields.file.url"
