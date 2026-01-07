@@ -1,34 +1,36 @@
-<div class="main-content">
-  
-  <!-- Bloque que se muestra si la búsqueda ha terminado -->
-  <div *ngIf="busquedaRealizada">
+<div class="page-container">
+  <div class="main-content">
     
-    <!-- Caso 1: Se encontraron productos -->
-    <div *ngIf="productos.length > 0; else noEncontrado">
-      <h1>Resultados para: "{{ query }}"</h1>
-      <div class="productos-grid">
-        <div class="producto" *ngFor="let p of productos" (click)="goToProductDetails(p.sys.id)"> 
-          <div class="img-wrapper">
-          <img
-            *ngIf="p.fields.productImage?.length"
-            [src]="'https:' + p.fields.productImage[0].fields.file.url"
-            alt="{{ p.fields.productImage[0].fields.title }}"
-          />
-        </div>
-          <h3>{{ p.fields.productName }}</h3>
+    <!-- Bloque que se muestra si la búsqueda ha terminado -->
+    <div *ngIf="busquedaRealizada">
+      
+      <!-- Caso 1: Se encontraron productos -->
+      <div *ngIf="productos.length > 0; else noEncontrado">
+        <h1>Resultados para: "{{ query }}"</h1>
+        <div class="productos-grid">
+          <div class="producto" *ngFor="let p of productos" (click)="goToProductDetails(p.sys.id)"> 
+            <div class="img-wrapper">
+            <img
+              *ngIf="p.fields.productImage?.length"
+              [src]="'https:' + p.fields.productImage[0].fields.file.url"
+              alt="{{ p.fields.productImage[0].fields.title }}"
+            />
+          </div>
+            <h3>{{ p.fields.productName }}</h3>
+          </div>
         </div>
       </div>
+
+      <!-- Caso 2: No se encontraron productos -->
+      <ng-template #noEncontrado>
+        <div class="no-encontrado">
+          <h2>No se encontraron productos para "{{ query }}"</h2>
+          <p>Prueba a buscar con otros términos o explora nuestras categorías.</p>
+          <a routerLink="/" class="cta-button">Volver al inicio</a>
+        </div>
+      </ng-template>
+
     </div>
 
-    <!-- Caso 2: No se encontraron productos -->
-    <ng-template #noEncontrado>
-      <div class="no-encontrado">
-        <h2>No se encontraron productos para "{{ query }}"</h2>
-        <p>Prueba a buscar con otros términos o explora nuestras categorías.</p>
-        <a routerLink="/" class="cta-button">Volver al inicio</a>
-      </div>
-    </ng-template>
-
   </div>
-
 </div>
