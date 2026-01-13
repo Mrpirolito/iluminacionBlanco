@@ -13,7 +13,20 @@ import { Router } from '@angular/router';
 })
 export class Home implements AfterViewInit {
   @ViewChild('heroRef', { static: true }) heroRef!: ElementRef<HTMLElement>;
+  @ViewChild('carousel', { static: true }) carousel!: ElementRef;
+
   productosPopulares: any[] = [];
+
+  isDragging = false;
+  startX = 0;
+  scrollLeft = 0;
+
+  velocity = 0;
+  lastX = 0;
+  lastTime = 0;
+  momentumId: number | null = null;
+
+  hasDragged = false;
 
   // Inyectamos el servicio en el constructor
   constructor(private renderer: Renderer2, 
@@ -71,6 +84,99 @@ export class Home implements AfterViewInit {
 
   goToProductDetails(id: string) {
     this.router.navigate(['/products', id]);
+  }
+
+  onCategoryClick(event: MouseEvent, category: string) {
+    if (this.hasDragged) {
+      event.preventDefault();
+      event.stopPropagation();
+      return;
+    }
+
+    this.selectCategory(category);
+    this.router.navigate(['/products']);
+  }
+
+  scrollToLeft() {
+    document.querySelector('.category-carousel')
+      ?.scrollBy({ left: -300, behavior: 'smooth' });
+  }
+
+  scrollToRight() {
+    document.querySelector('.category-carousel')
+      ?.scrollBy({ left: 300, behavior: 'smooth' });
+  }
+
+  onMouseDown(event: MouseEvent) {
+    this.isDragging = true;
+    this.hasDragged = false;
+
+    this.startX = event.pageX - this.carousel.nativeElement.offsetLeft;
+    this.scrollLeft = this.carousel.nativeElement.scrollLeft;
+
+    this.lastX = event.pageX;
+    this.lastTime = performance.now();
+
+    // cortar inercia si existía
+    if (this.momentumId) {
+      cancelAnimationFrame(this.momentumId);
+      this.momentumId = null;
+    }
+  }
+
+  onMouseMove(event: MouseEvent) {
+    if (!this.isDragging) return;
+
+    event.preventDefault();
+
+    const x = event.pageX - this.carousel.nativeElement.offsetLeft;
+    const walk = (x - this.startX) * 1.3;
+
+    this.carousel.nativeElement.scrollLeft = this.scrollLeft - walk;
+
+    // detectar drag real (para cancelar click)
+    if (Math.abs(walk) > 5) {
+      this.hasDragged = true;
+    }
+
+    // calcular velocidad
+    const now = performance.now();
+    const dx = event.pageX - this.lastX;
+    const dt = now - this.lastTime;
+
+    this.velocity = dx / dt;
+
+    this.lastX = event.pageX;
+    this.lastTime = now;
+  }
+
+  onMouseUp() {
+    if (!this.isDragging) return;
+
+    this.isDragging = false;
+    this.applyMomentum();
+  }
+
+  onMouseLeave() {
+    this.onMouseUp();
+  }
+
+  applyMomentum() {
+    const friction = 0.65;
+
+    const step = () => {
+      if (Math.abs(this.velocity) < 0.01) {
+        this.momentumId = null;
+        return;
+      }
+
+      this.carousel.nativeElement.scrollLeft -= this.velocity * 20;
+      this.velocity *= friction;
+
+      this.momentumId = requestAnimationFrame(step);
+    };
+
+    this.momentumId = requestAnimationFrame(step);
   }
 
 }

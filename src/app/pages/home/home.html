@@ -13,31 +13,70 @@
         <div class="section-header">
             <h2>Comprar por departamentos</h2>
         </div>
-        <div class="category-gallery">
-                        <!-- Categoría 1 -->
-            <div class="category-card" routerLink="/products" (click)="selectCategory('De pie')" style="cursor: pointer;">
+
+        <div class="carousel-wrapper">
+
+            <button (click)="scrollToLeft()" class="carousel-btn">
+                ←
+            </button>
+
+            <div class="category-carousel"
+                #carousel
+                (mousedown)="onMouseDown($event)"
+                (mousemove)="onMouseMove($event)"
+                (mouseup)="onMouseUp()"
+                (mouseleave)="onMouseUp()">
+
+                <div class="category-card"
+                    (click)="onCategoryClick($event, 'Bombillas')">
+                <img src="/images/bombillas.webp" alt="Bombillas">
+                <h3>Bombillas</h3>
+                </div>
+
+                <div class="category-card"
+                    (click)="onCategoryClick($event, 'De pie')">
                 <img src="/images/lampara-pie.jpg" alt="Lámparas de pie">
                 <h3>Lámparas de pie</h3>
-            </div>
+                </div>
 
-            <!-- Categoría 2 -->
-            <div class="category-card" routerLink="/products" (click)="selectCategory('Colgante')" style="cursor: pointer;">
+                <div class="category-card"
+                    (click)="onCategoryClick($event, 'Colgante')">
                 <img src="/images/lampara-colgante.jpg" alt="Lámpara colgante">
                 <h3>Lámpara colgante</h3>
-            </div>
+                </div>
 
-            <!-- Categoría 3 -->
-            <div class="category-card" routerLink="/products" (click)="selectCategory('De pared')" style="cursor: pointer;">
+                <div class="category-card"
+                    (click)="onCategoryClick($event, 'De pared')">
                 <img src="/images/iluminacion-pared.jpg" alt="Iluminación de pared">
                 <h3>Iluminación de pared</h3>
-            </div>
+                </div>
 
-            <!-- Categoría 4 -->
-            <div class="category-card" routerLink="/products" (click)="selectCategory('Sobremesa')" style="cursor: pointer;">
+                <div class="category-card"
+                    (click)="onCategoryClick($event, 'Sobremesa')">
                 <img src="/images/iluminacion-escritorio.jpg" alt="Iluminación Escritorio">
                 <h3>Lámpara de Escritorio</h3>
+                </div>
+
+                <div class="category-card"
+                    (click)="onCategoryClick($event, 'Interior')">
+                <img src="/images/iluminacion interior.jpg" alt="Interior">
+                <h3>Iluminación de Interior</h3>
+                </div>
+
+                <div class="category-card"
+                    (click)="onCategoryClick($event, 'Exterior')">
+                <img src="/images/iluminacion exterior.jpg" alt="Exterior">
+                <h3>Iluminación de exterior</h3>
+                </div>
+
             </div>
+
+            <button (click)="scrollToRight()" class="carousel-btn">
+                →
+            </button>
+        
         </div>
+        
     </section>
 </main>
 

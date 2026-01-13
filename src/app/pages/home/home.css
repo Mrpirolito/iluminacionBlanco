@@ -1,24 +1,40 @@
-.category-gallery {
-  display: grid;
-  /* fixed column width so images remain centered and evenly spaced */
-  grid-template-columns: repeat(4, 220px);
-  gap: 3.1rem; /* slightly larger but consistent */
-  justify-content: center; /* center the whole grid inside its container */
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
-  align-items: start;
-  justify-items: space-evenly;
-  max-width: 1100px; /* keep gallery a centered column block */
-  margin: 0 auto;
+.carousel-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.category-carousel {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: none;
+  scroll-behavior: auto;         /* controlamos nosotros */
+  flex: 1; /* ocupa todo el espacio disponible */
+}
+
+.category-carousel::-webkit-scrollbar {
+  display: none;               /* Chrome / Safari */
 }
 
 .category-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  transform: translateZ(0);
-  width: 220px;
+  min-width: 250px;
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+}
+
+/* Botones */
+.carousel-btn {
+  background: white;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 0 0.5rem;
+  height: 100%;
+}
+
+.carousel-btn:hover {
+  background: #f0f0f0;
 }
 
 .category-card img {
@@ -48,6 +64,7 @@
   margin: 3rem auto 6rem;
   padding: 0 18px;
   box-sizing: border-box;
+  border-radius: 25px;
 }
 
 .section-header {
