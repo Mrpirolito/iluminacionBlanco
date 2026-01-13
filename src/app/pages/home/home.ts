@@ -43,6 +43,35 @@ export class Home implements AfterViewInit {
   ngAfterViewInit(): void {
     // set an initial position
     this.updateHeroBackground();
+
+    // Make carousel infinite
+    const carousel = this.carousel.nativeElement;
+    const cards = Array.from(carousel.children) as HTMLElement[];
+    const numCards = cards.length;
+
+    // Clone cards to end and start for infinite effect
+    cards.forEach(card => {
+      const clone = card.cloneNode(true) as HTMLElement;
+      carousel.appendChild(clone);
+    });
+    cards.slice().reverse().forEach(card => {
+      const clone = card.cloneNode(true) as HTMLElement;
+      carousel.insertBefore(clone, carousel.firstChild);
+    });
+
+    // Set initial scroll to middle
+    carousel.scrollLeft = numCards * (cards[0].offsetWidth + 16); // approx gap
+
+    // Handle infinite scroll
+    carousel.addEventListener('scroll', () => {
+      const cardWidth = cards[0].offsetWidth + 16;
+      const totalWidth = numCards * cardWidth;
+      if (carousel.scrollLeft >= totalWidth * 2) {
+        carousel.scrollLeft -= totalWidth;
+      } else if (carousel.scrollLeft <= totalWidth) {
+        carousel.scrollLeft += totalWidth;
+      }
+    });
   }
 
   // Nuevo método para establecer la categoría
