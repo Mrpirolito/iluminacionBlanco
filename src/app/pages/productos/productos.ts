@@ -15,6 +15,7 @@ export class Productos implements OnInit, OnDestroy {
 
   productos: any[] = [];
   private categorySubscription: Subscription | undefined;
+  protected categoria: string = '';
 
   constructor(private productosService: ProductosService,
               private cdr: ChangeDetectorRef,
@@ -24,6 +25,7 @@ export class Productos implements OnInit, OnDestroy {
   ngOnInit() {
     console.log(`Entrando a lista de productos`)
     this.categorySubscription = this.productosService.selectedCategory$.subscribe(category => {
+      this.categoria = category;
       if (category === 'Todos') {
         this.productosService.getProductos()
         .then((res: { items: any[]; }) => {

@@ -1,19 +1,7 @@
 <div class="page-container">
 
-  <!-- Columna del Sidebar
-  <aside class="sidebar-sticky">
-    <h3>Categorías</h3>
-    <ul>
-      <li (click)="setCategory('Lámparas de pie')">Lámparas de pie</li>
-      <li (click)="setCategory('Lámpara colgante')">Lámpara colgante</li>
-      <li (click)="setCategory('Iluminación de pared')">Iluminación de pared</li>
-      <li (click)="setCategory('Lámpara de Escritorio')">Lámpara de Escritorio</li>
-    </ul>
-  </aside> -->
-
-  <!-- Columna del Contenido Principal -->
   <main class="main-content">
-    <h1 style="padding-left: 20px;">Productos</h1>
+    <h1 style="padding-left: 20px;">Productos: {{ categoria }}</h1>
     <div class="productos-grid">
       <div class="producto" *ngFor="let p of productos" (click)="goToProductDetails(p.sys.id)"> 
         <div class="img-wrapper">
