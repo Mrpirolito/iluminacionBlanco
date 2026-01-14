@@ -99,21 +99,21 @@
             </div>
 
             <div class="promo-panels">
-                <a class="promo-panel promo-left" routerLink="/products" (click)="selectCategory('Interior')" style="cursor: pointer;">
-                    <img src="/images/iluminacion interior.jpg" alt="Interior promo">
+                <a class="promo-panel promo-left" [routerLink]="servicios[0].enlace" (mouseover)="onMouseOver(servicios[0])" (mouseout)="onMouseOut(servicios[0])" style="cursor: pointer;">
+                    <img [src]="servicios[0].imgActual" alt="Arreglos de Lámparas">
                     <div class="promo-overlay">
-                        <h3>Cada hogar merece una mejor iluminación</h3>
-                        <p>Colecciones únicas de productos premium a precios asequibles.</p>
-                        <span class="promo-btn">Ver iluminaciones interiores</span>
+                        <h3>{{ servicios[0].titulo }}</h3>
+                        <p>{{ servicios[0].descripcion }}</p>
+                        <span class="promo-btn">Ver servicio</span>
                     </div>
                 </a>
 
-                <a class="promo-panel promo-right" routerLink="/products" (click)="selectCategory('Exterior')" style="cursor: pointer;">
-                    <img src="/images/iluminacion exterior.jpg" alt="Exterior promo">
+                <a class="promo-panel promo-right" [routerLink]="servicios[1].enlace" (mouseover)="onMouseOver(servicios[1])" (mouseout)="onMouseOut(servicios[1])" style="cursor: pointer;">
+                    <img [src]="servicios[1].imgActual" alt="Pantallas a Medida">
                     <div class="promo-overlay">
-                        <h3>Cada exterior merece una mejor iluminación</h3>
-                        <p>Colecciones únicas de productos premium a precios asequibles.</p>
-                        <span class="promo-btn">Ver iluminaciones exteriores</span>
+                        <h3>{{ servicios[1].titulo }}</h3>
+                        <p>{{ servicios[1].descripcion }}</p>
+                        <span class="promo-btn">Ver servicio</span>
                     </div>
                 </a>
             </div>

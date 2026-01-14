@@ -17,6 +17,25 @@ export class Home implements AfterViewInit {
 
   productosPopulares: any[] = [];
 
+  servicios = [
+    {
+      titulo: 'Arreglos de Lámparas',
+      descripcion: 'Devolvemos la vida a tus lámparas favoritas. Reparaciones eléctricas, restauración de piezas y más.',
+      enlace: '/servicios/arreglos-lamparas',
+      imgNormal: '/images/apagado.png',
+      imgHover: '/images/arreglo.jpg',
+      imgActual: '/images/apagado.png'
+    },
+    {
+      titulo: 'Pantallas a Medida',
+      descripcion: 'Diseña con nosotros la pantalla perfecta para tu espacio. Elegimos juntos telas, formas y tamaños.',
+      enlace: '/servicios/pantallas-a-medida',
+      imgNormal: '/images/pantallas a medidas.png',
+      imgHover: '/images/pantalla.webp',
+      imgActual: '/images/pantallas a medidas.png'
+    }
+  ];
+
   isDragging = false;
   startX = 0;
   scrollLeft = 0;
@@ -77,6 +96,14 @@ export class Home implements AfterViewInit {
   // Nuevo método para establecer la categoría
   selectCategory(category: string) {
     this.productosService.setSelectedCategory(category);
+  }
+
+  onMouseOver(servicio: any) {
+    servicio.imgActual = servicio.imgHover;
+  }
+
+  onMouseOut(servicio: any) {
+    servicio.imgActual = servicio.imgNormal;
   }
 
   @HostListener('window:scroll')
@@ -207,5 +234,4 @@ export class Home implements AfterViewInit {
 
     this.momentumId = requestAnimationFrame(step);
   }
-
 }
