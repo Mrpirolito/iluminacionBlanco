@@ -265,3 +265,43 @@
   .promo-overlay { padding: 18px; }
   .promo-panel img { height: 220px; }
 }
+
+/* Sección de legado */
+.legacy-section {
+  max-width: 1200px;
+  margin: 3rem auto 6rem;
+  padding: 0 18px;
+  text-align: center;
+}
+
+.legacy-inner h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.legacy-inner p {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.timeline {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.timeline-item {
+  background: #f9f9f9;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+@media (max-width: 768px) {
+  .timeline {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
