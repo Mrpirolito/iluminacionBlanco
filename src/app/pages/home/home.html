@@ -99,7 +99,7 @@
             </div>
 
             <div class="promo-panels">
-                <a class="promo-panel promo-left" [routerLink]="servicios[0].enlace" (mouseover)="onMouseOver(servicios[0])" (mouseout)="onMouseOut(servicios[0])" style="cursor: pointer;">
+                <a class="promo-panel promo-left" [routerLink]="servicios[0].enlace" (mouseover)="onMouseOver(servicios[0])" (mouseout)="onMouseOut(servicios[0])" (touchstart)="onMouseOver(servicios[0])" (touchend)="onMouseOut(servicios[0])" style="cursor: pointer;">
                     <img [src]="servicios[0].imgActual" alt="Arreglos de Lámparas">
                     <div class="promo-overlay">
                         <h3>{{ servicios[0].titulo }}</h3>
@@ -108,7 +108,7 @@
                     </div>
                 </a>
 
-                <a class="promo-panel promo-right" [routerLink]="servicios[1].enlace" (mouseover)="onMouseOver(servicios[1])" (mouseout)="onMouseOut(servicios[1])" style="cursor: pointer;">
+                <a class="promo-panel promo-right" [routerLink]="servicios[1].enlace" (mouseover)="onMouseOver(servicios[1])" (mouseout)="onMouseOut(servicios[1])" (touchstart)="onMouseOver(servicios[1])" (touchend)="onMouseOut(servicios[1])" style="cursor: pointer;">
                     <img [src]="servicios[1].imgActual" alt="Pantallas a Medida">
                     <div class="promo-overlay">
                         <h3>{{ servicios[1].titulo }}</h3>
