@@ -88,3 +88,37 @@ h1 {
     grid-template-columns: 1fr;
   }
 }
+
+/* Ajustes específicos para móvil: evitar superposición de tarjetas/texte */
+@media (max-width: 768px) {
+  .servicio-card {
+    /* Asegura que cada tarjeta ocupe su propio flujo y tenga separación */
+    display: block;
+    margin-bottom: 16px;
+  }
+
+  .servicio-card img {
+    /* Permite que la imagen responda al ancho y no fuerce overlays */
+    height: auto;
+    max-height: 320px;
+    object-fit: cover;
+    padding: 0;
+  }
+
+  /* En móvil, colocamos la info debajo de la imagen en lugar de encima */
+  .servicio-info {
+    position: relative;
+    background: none;
+    color: inherit;
+    padding: 12px 8px 20px 8px;
+    text-align: left;
+  }
+
+  .servicio-info h3 {
+    color: #111;
+  }
+
+  .servicio-info p {
+    color: #444;
+  }
+}

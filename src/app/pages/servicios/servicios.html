@@ -4,11 +4,13 @@
 
   <div class="servicios-grid">
     <!-- Usamos un *ngFor para crear las tarjetas dinámicamente -->
-    <a *ngFor="let servicio of servicios" 
+     <a *ngFor="let servicio of servicios" 
        [routerLink]="servicio.enlace" 
        class="servicio-card"
        (mouseover)="onMouseOver(servicio)"
-       (mouseout)="onMouseOut(servicio)">
+       (mouseout)="onMouseOut(servicio)"
+       (touchstart)="onMouseOver(servicio)"
+       (touchend)="onMouseOut(servicio)">
       
       <!-- La imagen ahora es dinámica -->
       <img [src]="servicio.imgActual" [alt]="servicio.titulo">

@@ -71,3 +71,24 @@
   height: 100%;
   object-fit: cover;
 }
+
+/* Reglas responsivas para móvil: mantener escritorio exactamente igual */
+@media (max-width: 768px) {
+  .productos-grid {
+    /* Ajusta automáticamente el número de columnas según el ancho disponible */
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 16px;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  /* Evita desbordes horizontales en móvil */
+  .page-container {
+    overflow-x: hidden;
+  }
+
+  /* Hace que las imágenes tengan una altura razonable en móvil */
+  .img-wrapper {
+    height: 160px;
+  }
+}
