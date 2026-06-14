@@ -1,17 +1,28 @@
+/* ============================================================
+   GLOBAL DARK MODE  –  body + background
+   ============================================================ */
+:root {
+  --body-bg:   #f8f8f8;
+  --body-text: #333;
+}
+
+[data-theme="dark"] {
+  --body-bg:   #1a1410;
+  --body-text: #f0ebe4;
+}
+
 /* Reseteo básico y fuentes */
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     margin: 0;
-    background-color: #f8f8f8;
-    color: #333;
+    background-color: var(--body-bg);
+    color: var(--body-text);
+    transition: background-color 0.3s, color 0.3s;
 }
 
 :root {
-    --header-height: 110px; /* adjust if header actual height changes */
+    --header-height: 72px;
 }
-
-/* Reserve space for the fixed header on all pages 
-body { padding-top: var(--header-height); } */
 
 /* Encabezado */
 header {
@@ -31,45 +42,16 @@ header {
     vertical-align: baseline;
 }
 
-header .logo strong {
-    font-size: 1.5rem;
-    font-weight: bold;
-}
+header .logo strong { font-size: 1.5rem; font-weight: bold; }
 
-header nav ul {
-    list-style: none;
-    display: flex;
-    gap: 1.5rem;
-    margin: 0;
-    padding: 0;
-}
+header nav ul { list-style: none; display: flex; gap: 1.5rem; margin: 0; padding: 0; }
+header nav a  { text-decoration: none; color: #333; font-weight: 500; }
 
-header nav a {
-    text-decoration: none;
-    color: #333;
-    font-weight: 500;
-}
+header .header-icons { display: flex; align-items: center; gap: 1.5rem; }
+header .header-icons a { text-decoration: none; color: #333; }
+header .header-icons span { background-color: #f0f0f0; border-radius: 12px; padding: 0.2rem 0.5rem; font-size: 0.8rem; }
 
-/* Creo que este y los 2 siguientes no se usan*/
-header .header-icons {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-}
-
-header .header-icons a {
-    text-decoration: none;
-    color: #333;
-}
-
-header .header-icons span {
-    background-color: #f0f0f0;
-    border-radius: 12px;
-    padding: 0.2rem 0.5rem;
-    font-size: 0.8rem;
-}
-
-/* Sección Background */
+/* Sección Hero */
 #hero {
     background-image: url('../public/images/hero-background.jpg');
     background-size: cover;
@@ -87,28 +69,13 @@ header .header-icons span {
 #hero::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.3); /* Sombra para legibilidad */
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(0,0,0,0.3);
 }
 
-#hero .hero-content {
-    position: relative;
-    max-width: 600px;
-}
-
-#hero h1 {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    line-height: 1.2;
-}
-
-#hero p {
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
-}
+#hero .hero-content { position: relative; max-width: 600px; }
+#hero h1 { font-size: 3rem; margin-bottom: 1rem; line-height: 1.2; }
+#hero p  { font-size: 1.2rem; margin-bottom: 2rem; }
 
 #hero .cta-button {
     background-color: transparent;
@@ -120,110 +87,54 @@ header .header-icons span {
     font-weight: 500;
     transition: background-color 0.3s, color 0.3s;
 }
-
-#hero .cta-button:hover {
-    background-color: #fff;
-    color: #000;
-}
+#hero .cta-button:hover { background-color: #fff; color: #000; }
 
 /* Sección Departamentos */
-#departamentos {
-    padding: 4rem;
-    background-color: #ffffff;
-}
+#departamentos { padding: 4rem; background-color: #ffffff; }
 
-.section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
-}
+.section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+.section-header h2 { font-size: 1.8rem; margin: 0; }
+.section-header .view-all-link { text-decoration: none; color: #555; font-weight: 500; }
 
-.section-header h2 {
-    font-size: 1.8rem;
-    margin: 0;
-}
-
-.section-header .view-all-link {
-    text-decoration: none;
-    color: #555;
-    font-weight: 500;
-}
-
-.category-gallery {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1.5rem;
-}
-
-.category-card {
-    text-align: left;
-}
-
-.category-card img {
-    width: 100%;
-    height: 300px; /* Altura fija para todas las imágenes */
-    object-fit: cover; /* Recorta la imagen para que encaje sin deformarse */
-    border-radius: 8px;
-    margin-bottom: 1rem;
-}
-
-.category-card h3 {
-    font-size: 1.2rem;
-    font-weight: 500;
-    margin: 0;
-}
+.category-gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+.category-card { text-align: left; }
+.category-card img { width: 100%; height: 300px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem; }
+.category-card h3 { font-size: 1.2rem; font-weight: 500; margin: 0; }
 
 /* Pie de página */
 footer {
     text-align: center;
     padding: 2rem;
-    background-color: #f8f8f8;
-    color: #888;
+    background-color: var(--body-bg);
+    color: var(--body-text);
     font-size: 0.9rem;
+    transition: background-color 0.3s, color 0.3s;
 }
 
-/* ===== ZOOM-LOCK: Prevent image/content deformation on browser zoom ===== */
-
-/* Global rule: disable zoom scaling on images */
+/* ===== ZOOM-LOCK ===== */
 img {
     max-width: 100%;
     height: auto;
     display: block;
-    /* Force rendering layer (GPU acceleration) */
     transform: translateZ(0);
     -webkit-transform: translateZ(0);
-    /* Prevent text reflow and zoom scaling */
     will-change: auto;
-    /* Block drag/pinch zoom on images */
     -webkit-user-drag: 100%;
     -webkit-touch-callout: 100%;
     -webkit-user-select: 100%;
-    /* Crisp rendering across zoom levels */
     image-rendering: -webkit-optimize-contrast;
 }
 
-/* Root element zoom mitigation: prevent document-level reflow */
-html, body {
-    /* Lock body to 100% viewport dimensions */
-    width: 100%;
-    height: auto;
-    /* Ensure CSS transforms work properly */
-    
-    
-}
+html, body { width: 100%; height: auto; }
 
-/* Containers: prevent reflow on zoom */
 main, section, .category-gallery, .category-card, .contact-page, .map-container {
     transform: translateZ(0);
     -webkit-transform: translateZ(0);
     box-sizing: border-box;
 }
 
-/* Disable text selection zoom workarounds */
 body { user-select: none; -webkit-user-select: none; -ms-user-select: none; }
 
-/* Allow text selection only on semantic elements */
 p, h1, h2, h3, h4, h5, h6, a, span, li {
     -webkit-user-select: text;
     -moz-user-select: text;
@@ -231,98 +142,52 @@ p, h1, h2, h3, h4, h5, h6, a, span, li {
     user-select: text;
 }
 
-/* Disable double-tap zoom on touch devices */
 body { touch-action: pan-x pan-y; }
 
-/* Override category-gallery from global styles to ensure consistency */
-.category-gallery {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1.5rem;
-}
+.category-gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+.category-card { text-align: left; }
+.category-card img { width: 100%; height: 300px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem; }
+.category-card h3 { font-size: 1.2rem; font-weight: 500; margin: 0; }
 
-.category-card {
-    text-align: left;
-}
-
-.category-card img {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-    border-radius: 8px;
-    margin-bottom: 1rem;
-}
-
-.category-card h3 {
-    font-size: 1.2rem;
-    font-weight: 500;
-    margin: 0;
-}
-
-/* Floating WhatsApp button (global) */
+/* WhatsApp FAB */
 .whatsapp-fab {
-        position: fixed !important;
-        right: 18px;
-        bottom: 18px;
-        width: 56px;
-        height: 56px;
-        border-radius: 50%;
-        background-color: #25D366; /* WhatsApp green */
-        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff'><path d='M20.52 3.48A11.93 11.93 0 0 0 12 0c-6.627 0-12 5.373-12 12 0 2.114.546 4.086 1.586 5.847L0 24l6.439-1.691A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12 0-1.964-.48-3.813-1.48-5.52zM12 21.75c-1.84 0-3.634-.5-5.18-1.44l-.37-.22-3.83 1.01 1.02-3.73-.24-.38A9.75 9.75 0 1 1 21.75 12 9.76 9.76 0 0 1 12 21.75z'/><path d='M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.472-.149-.672.149-.198.297-.768.967-.942 1.166-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.885-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.372-.025-.521-.074-.149-.672-1.62-.92-2.22-.242-.581-.487-.5-.672-.51l-.573-.01c-.198 0-.52.074-.793.372s-1.04 1.016-1.04 2.479 1.064 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487 2.981 1.29 2.981.86 3.518.806.538-.05 1.758-.718 2.006-1.412.248-.695.248-1.29.173-1.412-.074-.123-.27-.198-.567-.347z'/></svg>");
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: 56% 56%;
-        box-shadow: 0 10px 28px rgba(37,211,102,0.18), 0 2px 6px rgba(0,0,0,0.12);
-        z-index: 99999; /* ensure it's above everything */
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transform: translateZ(0);
-        transition: transform 150ms ease, box-shadow 150ms ease;
+    position: fixed !important;
+    right: 18px; bottom: 18px;
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background-color: #25D366;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff'><path d='M20.52 3.48A11.93 11.93 0 0 0 12 0c-6.627 0-12 5.373-12 12 0 2.114.546 4.086 1.586 5.847L0 24l6.439-1.691A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12 0-1.964-.48-3.813-1.48-5.52zM12 21.75c-1.84 0-3.634-.5-5.18-1.44l-.37-.22-3.83 1.01 1.02-3.73-.24-.38A9.75 9.75 0 1 1 21.75 12 9.76 9.76 0 0 1 12 21.75z'/><path d='M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.472-.149-.672.149-.198.297-.768.967-.942 1.166-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.885-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.372-.025-.521-.074-.149-.672-1.62-.92-2.22-.242-.581-.487-.5-.672-.51l-.573-.01c-.198 0-.52.074-.793.372s-1.04 1.016-1.04 2.479 1.064 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487 2.981 1.29 2.981.86 3.518.806.538-.05 1.758-.718 2.006-1.412.248-.695.248-1.29.173-1.412-.074-.123-.27-.198-.567-.347z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 56% 56%;
+    box-shadow: 0 10px 28px rgba(37,211,102,0.18), 0 2px 6px rgba(0,0,0,0.12);
+    z-index: 99999;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transform: translateZ(0);
+    transition: transform 150ms ease, box-shadow 150ms ease;
 }
 .whatsapp-fab:active { transform: scale(0.96); }
-.whatsapp-fab:hover { box-shadow: 0 14px 34px rgba(37,211,102,0.22); transform: translateY(-3px); }
+.whatsapp-fab:hover  { box-shadow: 0 14px 34px rgba(37,211,102,0.22); transform: translateY(-3px); }
 
-/* Ensure it's still visible and appropriately sized on small screens */
 @media (max-width: 480px) {
     .whatsapp-fab { width: 48px; height: 48px; right: 14px; bottom: 14px; background-size: 60% 60%; }
 }
 
 .no-encontrado {
-  position: fixed;       /* se posiciona respecto a la pantalla */
-  inset: 0;              /* top:0; right:0; bottom:0; left:0 */
-  display: flex;
-  flex-direction: column; /* apilar h2 -> p -> a */
-  justify-content: center; /* centrar verticalmente */
-  align-items: center;     /* centrar horizontalmente */
-  text-align: center;      /* alinear texto */
-  padding: 20px;          /* opcional, para que no pegue en los bordes */
-  background: #fff;       /* opcional, para destacar */
+  position: fixed; inset: 0;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  text-align: center; padding: 20px;
+  background: var(--body-bg);
 }
-
-.no-encontrado h2 {
-  font-size: 2rem;
-  margin-bottom: 15px;
-}
-
-.no-encontrado p {
-  font-size: 1.1rem;
-  color: #666;
-  margin-bottom: 25px;
-}
-
+.no-encontrado h2 { font-size: 2rem; margin-bottom: 15px; }
+.no-encontrado p  { font-size: 1.1rem; color: #666; margin-bottom: 25px; }
 .no-encontrado .cta-button {
-  background-color: #333;
-  color: #fff;
-  border: 1px solid #333;
-  padding: 1rem 2rem;
-  text-decoration: none;
-  border-radius: 30px;
-  font-weight: 500;
+  background-color: #333; color: #fff; border: 1px solid #333;
+  padding: 1rem 2rem; text-decoration: none; border-radius: 30px; font-weight: 500;
   transition: background-color 0.3s, color 0.3s;
 }
-
-.no-encontrado .cta-button:hover {
-  background-color: #555;
-}
+.no-encontrado .cta-button:hover { background-color: #555; }

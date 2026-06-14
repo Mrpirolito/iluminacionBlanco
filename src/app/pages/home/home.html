@@ -1,141 +1,169 @@
 <main>
+    <!-- ══════════════ HERO ══════════════ -->
     <section id="hero" #heroRef>
         <div class="hero-inner">
             <div class="hero-content">
                 <h1>Elige nuestras lámparas y haz que tu interior sea único.</h1>
                 <p>Iluminación de excelente diseño para tu hogar y oficina.<br>Nuestras lámparas de alta calidad modernizarán tu espacio.</p>
-                <a class="cta-button" routerLink="/products" (click)="selectCategory('Todos')" style="cursor: pointer;">Explora nuestros productos</a>
+                <a class="cta-button" routerLink="/products" (click)="selectCategory('Todos')" style="cursor:pointer;">
+                    Explora nuestros productos
+                </a>
             </div>
         </div>
     </section>
 
+    <!-- ══════════════ DEPARTAMENTOS ══════════════ -->
     <section id="departamentos">
         <div class="section-header">
             <h2>Comprar por departamentos</h2>
+            <a routerLink="/products" class="view-all-link" (click)="selectCategory('Todos')">
+                Ver todo &nbsp;→
+            </a>
         </div>
 
         <div class="carousel-wrapper">
 
-            <button (click)="scrollToLeft()" class="carousel-btn">
-                ←
+            <button (click)="scrollToLeft()" class="carousel-btn" aria-label="Anterior">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
             </button>
 
             <div class="category-carousel"
-                #carousel
-                (mousedown)="onMouseDown($event)"
-                (mousemove)="onMouseMove($event)"
-                (mouseup)="onMouseUp()"
-                (mouseleave)="onMouseUp()">
+                 #carousel
+                 (mousedown)="onMouseDown($event)"
+                 (mousemove)="onMouseMove($event)"
+                 (mouseup)="onMouseUp()"
+                 (mouseleave)="onMouseUp()">
 
-                <div class="category-card"
-                    (click)="onCategoryClick($event, 'Bombillas')">
-                <img src="/images/bombillas.webp" alt="Bombillas">
-                <h3>Bombillas</h3>
+                <div class="category-card" (click)="onCategoryClick($event, 'Bombillas')">
+                    <img src="/images/bombillas.webp" alt="Bombillas">
+                    <h3>Bombillas</h3>
                 </div>
-
-                <div class="category-card"
-                    (click)="onCategoryClick($event, 'De pie')">
-                <img src="/images/lampara-pie.jpg" alt="Lámparas de pie">
-                <h3>Lámparas de pie</h3>
+                <div class="category-card" (click)="onCategoryClick($event, 'De pie')">
+                    <img src="/images/lampara-pie.jpg" alt="Lámparas de pie">
+                    <h3>Lámparas de pie</h3>
                 </div>
-
-                <div class="category-card"
-                    (click)="onCategoryClick($event, 'Colgante')">
-                <img src="/images/lampara-colgante.jpg" alt="Lámpara colgante">
-                <h3>Lámpara colgante</h3>
+                <div class="category-card" (click)="onCategoryClick($event, 'Colgante')">
+                    <img src="/images/lampara-colgante.jpg" alt="Lámpara colgante">
+                    <h3>Lámpara colgante</h3>
                 </div>
-
-                <div class="category-card"
-                    (click)="onCategoryClick($event, 'De pared')">
-                <img src="/images/iluminacion-pared.jpg" alt="Iluminación de pared">
-                <h3>Iluminación de pared</h3>
+                <div class="category-card" (click)="onCategoryClick($event, 'De pared')">
+                    <img src="/images/iluminacion-pared.jpg" alt="Iluminación de pared">
+                    <h3>Iluminación de pared</h3>
                 </div>
-
-                <div class="category-card"
-                    (click)="onCategoryClick($event, 'Sobremesa')">
-                <img src="/images/iluminacion-escritorio.jpg" alt="Iluminación Escritorio">
-                <h3>Lámpara de Escritorio</h3>
+                <div class="category-card" (click)="onCategoryClick($event, 'Sobremesa')">
+                    <img src="/images/iluminacion-escritorio.jpg" alt="Iluminación Escritorio">
+                    <h3>Lámpara de Escritorio</h3>
                 </div>
-
-                <div class="category-card"
-                    (click)="onCategoryClick($event, 'Ventiladores')">
-                <img src="/images/ventilador.webp" alt="Ventiladores">
-                <h3>Ventiladores</h3>
+                <div class="category-card" (click)="onCategoryClick($event, 'Ventiladores')">
+                    <img src="/images/ventilador.webp" alt="Ventiladores">
+                    <h3>Ventiladores</h3>
                 </div>
-
-                <div class="category-card"
-                    (click)="onCategoryClick($event, 'Electricidad')">
-                <img src="/images/ventilador.webp" alt="Electricidad">
-                <h3>Electricidad</h3>
+                <div class="category-card" (click)="onCategoryClick($event, 'Electricidad')">
+                    <img src="/images/ventilador.webp" alt="Electricidad">
+                    <h3>Electricidad</h3>
                 </div>
-
-                <div class="category-card"
-                    (click)="onCategoryClick($event, 'Exterior')">
-                <img src="/images/iluminacion exterior.jpg" alt="Exterior">
-                <h3>Iluminación de exterior</h3>
+                <div class="category-card" (click)="onCategoryClick($event, 'Exterior')">
+                    <img src="/images/iluminacion exterior.jpg" alt="Exterior">
+                    <h3>Iluminación de exterior</h3>
                 </div>
-
             </div>
 
-            <button (click)="scrollToRight()" class="carousel-btn">
-                →
+            <button (click)="scrollToRight()" class="carousel-btn" aria-label="Siguiente">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
             </button>
-        
+
         </div>
-        
     </section>
 </main>
 
-        <!-- Secciones añadidas: Selecciones populares + Paneles promocionales -->
-        <section class="popular-section">
+<!-- ══════════════ POPULAR + PROMO ══════════════ -->
+<section class="popular-section">
 
-            <!-- Si hay productos populares aparecen -->
-            <div class="popular-header" *ngIf="productosPopulares.length != 0">
-                <h2>Selecciones populares</h2>
+    <div class="popular-header" *ngIf="productosPopulares.length != 0">
+        <h2>Selecciones populares</h2>
+        <a routerLink="/products" class="view-all-link" (click)="selectCategory('Todos')">Ver todo &nbsp;→</a>
+    </div>
+
+    <div class="product-grid" *ngIf="productosPopulares.length != 0">
+        <div class="product-card" *ngFor="let p of productosPopulares; let i = index"
+             (click)="goToProductDetails(p.sys.id)">
+            <!-- Etiqueta "Popular" en los 3 primeros -->
+            <span class="product-badge" *ngIf="i < 3">Popular</span>
+            <img *ngIf="p.fields.productImage?.length"
+                 [src]="'https:' + p.fields.productImage[0].fields.file.url"
+                 alt="{{ p.fields.productImage[0].fields.title }}"/>
+            <h3>{{ p.fields.productName }}</h3>
+        </div>
+    </div>
+
+    <!-- Paneles promo (Arreglos + Pantallas) -->
+    <div class="promo-panels">
+        <a class="promo-panel promo-left"
+           [routerLink]="servicios[0].enlace"
+           (mouseover)="onMouseOver(servicios[0])"
+           (mouseout)="onMouseOut(servicios[0])"
+           (touchstart)="onMouseOver(servicios[0])"
+           (touchend)="onMouseOut(servicios[0])"
+           style="cursor:pointer;">
+            <img [src]="servicios[0].imgActual" alt="Arreglos de Lámparas">
+            <div class="promo-overlay">
+                <h3>{{ servicios[0].titulo }}</h3>
+                <p>{{ servicios[0].descripcion }}</p>
+                <span class="promo-btn">Ver servicio</span>
             </div>
-            <div class="product-grid" *ngIf="productosPopulares.length != 0">
-                <div class="product-card" *ngFor="let p of productosPopulares" (click)="goToProductDetails(p.sys.id)"> 
-                    <img
-                        *ngIf="p.fields.productImage?.length"
-                        [src]="'https:' + p.fields.productImage[0].fields.file.url"
-                        alt="{{ p.fields.productImage[0].fields.title }}"
-                    />
-                    <h3>{{ p.fields.productName }}</h3>
-                </div>
+        </a>
+
+        <a class="promo-panel promo-right"
+           [routerLink]="servicios[1].enlace"
+           (mouseover)="onMouseOver(servicios[1])"
+           (mouseout)="onMouseOut(servicios[1])"
+           (touchstart)="onMouseOver(servicios[1])"
+           (touchend)="onMouseOut(servicios[1])"
+           style="cursor:pointer;">
+            <img [src]="servicios[1].imgActual" alt="Pantallas a Medida">
+            <div class="promo-overlay">
+                <h3>{{ servicios[1].titulo }}</h3>
+                <p>{{ servicios[1].descripcion }}</p>
+                <span class="promo-btn">Ver servicio</span>
             </div>
+        </a>
+    </div>
+</section>
 
-            <div class="promo-panels">
-                <a class="promo-panel promo-left" [routerLink]="servicios[0].enlace" (mouseover)="onMouseOver(servicios[0])" (mouseout)="onMouseOut(servicios[0])" (touchstart)="onMouseOver(servicios[0])" (touchend)="onMouseOut(servicios[0])" style="cursor: pointer;">
-                    <img [src]="servicios[0].imgActual" alt="Arreglos de Lámparas">
-                    <div class="promo-overlay">
-                        <h3>{{ servicios[0].titulo }}</h3>
-                        <p>{{ servicios[0].descripcion }}</p>
-                        <span class="promo-btn">Ver servicio</span>
-                    </div>
-                </a>
+<!-- ══════════════ LEGADO ══════════════ -->
+<section class="legacy-section">
+    <div class="legacy-inner">
+        <h2>Nuestro Legado</h2>
+        <p>Con más de <span style="color:#c8a96e;font-weight:600;">50 años</span> de experiencia desde 1970, Iluminación Blanco ha sido pionera en soluciones de iluminación innovadoras. Nuestra trayectoria nos permite ofrecer productos de la más alta calidad, respaldados por décadas de conocimiento y dedicación a la excelencia.</p>
+    </div>
+</section>
 
-                <a class="promo-panel promo-right" [routerLink]="servicios[1].enlace" (mouseover)="onMouseOver(servicios[1])" (mouseout)="onMouseOut(servicios[1])" (touchstart)="onMouseOver(servicios[1])" (touchend)="onMouseOut(servicios[1])" style="cursor: pointer;">
-                    <img [src]="servicios[1].imgActual" alt="Pantallas a Medida">
-                    <div class="promo-overlay">
-                        <h3>{{ servicios[1].titulo }}</h3>
-                        <p>{{ servicios[1].descripcion }}</p>
-                        <span class="promo-btn">Ver servicio</span>
-                    </div>
-                </a>
-            </div>
-        </section>
-
-        <!-- Sección de legado -->
-        <section class="legacy-section">
-            <div class="legacy-inner">
-                <h2>Nuestro Legado</h2>
-                <p>Con más de <span style="color: #B8860B; font-weight: bold;">50 años</span> de experiencia desde 1970, Iluminación Blanco ha sido pionera en soluciones de iluminación innovadoras. Nuestra trayectoria nos permite ofrecer productos de la más alta calidad, respaldados por décadas de conocimiento y dedicación a la excelencia.</p>
-            </div>
-        </section>
-
+<!-- ══════════════ FOOTER ══════════════ -->
 <footer>
-    <p>&copy; 2025 Iluminacion blanco - Todos los derechos reservados.</p>
-    <p>Más de 50 años, iluminando hogares desde 1970.</p>
-    <p>telf: +34679967754</p>
-    <p>email: electricidadblanco@hotmail.com</p>
+    <div class="footer-inner">
+        <div class="footer-brand">
+            <strong>Iluminación Blanco</strong>
+            <p>Más de 50 años iluminando hogares<br>y proyectos en Madrid desde 1970.</p>
+        </div>
+        <div class="footer-col">
+            <div class="footer-col-title">Visítanos</div>
+            <p>Calle de Clara del Rey, 42<br>Madrid, España</p>
+        </div>
+        <div class="footer-col">
+            <div class="footer-col-title">Contacto</div>
+            <p>
+                <a href="tel:+34679967754" style="color:inherit;text-decoration:none;">+34 679 967 754</a><br>
+                <a href="mailto:electricidadblanco@hotmail.com" style="color:inherit;text-decoration:none;">electricidadblanco@hotmail.com</a>
+            </p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        &copy; 2025 Iluminación Blanco · Todos los derechos reservados.
+    </div>
 </footer>

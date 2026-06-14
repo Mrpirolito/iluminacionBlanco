@@ -1,5 +1,35 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
 
+/* ── Dark mode tokens ── */
+:root {
+  --ct-bg:          #ffffff;
+  --ct-text:        #444;
+  --ct-title:       #7a4b2f;
+  --ct-border:      #e8e4df;
+  --ct-card-bg:     #ffffff;
+  --ct-muted:       #999;
+  --ct-stars:       #f5a623;
+  --ct-gold:        #b8924a;
+  --ct-gold-soft:   rgba(184,146,74,0.12);
+  --ct-footer-bg:   #f8f8f8;
+  --ct-footer-text: #888;
+}
+
+[data-theme="dark"] {
+  --ct-bg:          #0f0d0b;
+  --ct-text:        #a89880;
+  --ct-title:       #c8a96e;
+  --ct-border:      #2c2620;
+  --ct-card-bg:     #1a1612;
+  --ct-muted:       #6b5f52;
+  --ct-stars:       #f5a623;
+  --ct-gold:        #c8a96e;
+  --ct-gold-soft:   rgba(200,169,110,0.10);
+  --ct-footer-bg:   #161210;
+  --ct-footer-text: #6b5f52;
+}
+
+/* ── Page ── */
 .contact-page {
   display: flex;
   flex-direction: column;
@@ -7,153 +37,211 @@
   padding: 18px;
   position: relative;
   box-sizing: border-box;
+  background: var(--ct-bg);
+  transition: background 0.3s;
 }
 
+/* ── Map ── */
 .map-container {
-	width: min(640px, 90%);
-	aspect-ratio: 1 / 1;
-	border-radius: 8px;
-	overflow: hidden;
-	box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-	margin: 0 auto;
-	position: relative;
+  width: min(640px, 90%);
+  aspect-ratio: 1 / 1;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  margin: 0 auto;
+  position: relative;
 }
 
 .contact-content {
-	max-width: 900px;
-	margin: 0 auto;
-	text-align: left;
-	position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: left;
+  position: relative;
 }
 
-/* Hero section with image on the right and text on the left */
 .contact-hero {
-	display: flex;
-	gap: 30px;
-	align-items: center;
-	justify-content: space-between;
-	max-width: 1100px;
-	margin: 0 auto 12px;
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1100px;
+  margin: 0 auto 12px;
 }
 
-.hero-text {
-	flex: 1 1 48%;
-}
+.hero-text { flex: 1 1 48%; }
 
 .hero-title {
-	font-family: 'Playfair Display', serif;
-	font-size: 3.2rem;
-	margin: 0 0 12px;
-	color: #7a4b2f;
+  font-family: 'Playfair Display', serif;
+  font-size: 3.2rem;
+  margin: 0 0 12px;
+  color: var(--ct-title);
+  transition: color 0.3s;
 }
 
 .hero-lead {
-	font-family: 'Playfair Display', serif;
-	font-size: 1.05rem;
-	color: #444;
-	margin-bottom: 12px;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem;
+  color: var(--ct-text);
+  margin-bottom: 12px;
+  transition: color 0.3s;
 }
 
-.hero-image {
-	flex: 0 0 44%;
-	max-width: 520px;
-}
+.hero-image { flex: 0 0 44%; max-width: 520px; }
 
 .hero-image img {
-	width: 100%;
-	height: auto;
-	display: block;
-	border: 18px solid #fff; /* white frame like example */
-	box-shadow: 0 12px 30px rgba(0,0,0,0.15);
-	border-radius: 2px;
-}
-
-.contact-title {
-	font-family: 'Playfair Display', serif;
-	font-size: 1.8rem;
-	margin-bottom: 12px;
-	color: #333;
+  width: 100%;
+  height: auto;
+  display: block;
+  border: 18px solid var(--ct-card-bg);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+  border-radius: 2px;
+  transition: border-color 0.3s;
 }
 
 .story {
-	font-family: 'Playfair Display', serif;
-	color: #444;
-	line-height: 1.6;
-	font-size: 1.05rem;
-	margin-bottom: 12px;
+  font-family: 'Playfair Display', serif;
+  color: var(--ct-text);
+  line-height: 1.6;
+  font-size: 1.05rem;
+  margin-bottom: 12px;
+  transition: color 0.3s;
 }
 
-@media (min-width: 768px) {
-	.contact-page {
-		padding: 36px;
-	}
-	.contact-hero { gap: 48px; }
+/* ── Reseñas — debajo del mapa, fuera de .contact-content ── */
+.contact-reviews {
+  max-width: 1100px;
+  margin: 2.5rem auto 2rem;
+  padding: 0 18px;
+  box-sizing: border-box;
 }
 
-@media (max-width: 900px) {
-	.contact-hero {
-		flex-direction: column-reverse;
-		gap: 18px;
-		align-items: stretch;
-	}
-
-	.hero-image { width: 100%; max-width: 100%; flex: 0 0 auto; }
-	.hero-image img { border-width: 12px; }
-	.hero-title { font-size: 2.2rem; }
+.contact-reviews h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  color: var(--ct-title);
+  margin: 0 0 0.4rem;
+  transition: color 0.3s;
 }
 
-/* Force iframe rendering isolation to avoid transform/zoom side-effects */
-.map-container iframe {
-	display: block;
-	width: 100%;
-	height: 100%;
-	border: 0;
-	will-change: transform;
-	-webkit-transform: translateZ(0);
-	transform: translateZ(0);
+.contact-reviews-score {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  color: var(--ct-muted);
+}
+.contact-reviews-score .stars { color: var(--ct-stars); font-size: 1rem; }
+.contact-reviews-score strong { color: var(--ct-text); }
+
+.contact-reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
 }
 
-/* Basic image rules so images don't overflow/scale unexpectedly */
-img { max-width: 100%; height: auto; display: block; }
+.review-card {
+  background: var(--ct-card-bg);
+  border: 1px solid var(--ct-border);
+  border-radius: 10px;
+  padding: 1.25rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: background 0.3s, border-color 0.3s;
+}
 
-/* Overlay styles specific to contact page */
+.review-stars { color: #c8a96e; font-size: 0.95rem; letter-spacing: 2px; }
+.contact-reviews-score .stars { color: #c8a96e; font-size: 1rem; }
+
+.review-text {
+  font-size: 0.88rem;
+  color: var(--ct-text);
+  line-height: 1.6;
+  margin: 0;
+  flex: 1;
+}
+
+.review-author { display: flex; align-items: center; gap: 10px; margin-top: 4px; }
+
+.review-avatar {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: var(--ct-gold-soft);
+  border: 1px solid var(--ct-border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.75rem; font-weight: 700;
+  color: var(--ct-gold); flex-shrink: 0;
+}
+
+.review-name { font-size: 0.85rem; font-weight: 600; color: var(--ct-text); }
+.review-date { font-size: 0.75rem; color: var(--ct-muted); margin-top: 1px; }
+
+/* ── Footer ── */
+footer {
+  text-align: center;
+  padding: 2rem;
+  background-color: var(--ct-footer-bg);
+  color: var(--ct-footer-text);
+  font-size: 0.9rem;
+  transition: background 0.3s, color 0.3s;
+}
+
+/* ── Scroll overlay ── */
 .scroll-overlay {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background: rgba(0,0,0,0);
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	transition: background 300ms ease, opacity 300ms ease;
-	opacity: 0;
-	pointer-events: none;
-	z-index: 1200; /* above header (1100) */
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 300ms ease, opacity 300ms ease;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1200;
 }
-
 .scroll-overlay.visible {
-	background: rgba(0,0,0,0.72);
-	opacity: 1;
-	pointer-events: auto;
+  background: rgba(0,0,0,0.72);
+  opacity: 1;
+  pointer-events: auto;
 }
-
 .overlay-inner { color: #fff; text-align: center; }
-
 .overlay-contact {
-	background: rgba(255,255,255,0.06);
-	padding: 18px 28px;
-	border-radius: 8px;
-	display: inline-flex;
-	gap: 18px;
-	align-items: center;
+  background: rgba(255,255,255,0.06);
+  padding: 18px 28px;
+  border-radius: 8px;
+  display: inline-flex;
+  gap: 18px;
+  align-items: center;
 }
-
 .overlay-item { font-size: 1.2rem; }
 .overlay-item a { color: #fff; text-decoration: none; }
 
-@media (max-width: 600px) {
-	.overlay-contact { flex-direction: column; gap: 8px; }
+/* ── Responsive ── */
+@media (min-width: 768px) {
+  .contact-page { padding: 36px; }
+  .contact-hero { gap: 48px; }
 }
 
+@media (max-width: 900px) {
+  .contact-hero { flex-direction: column-reverse; gap: 18px; align-items: stretch; }
+  .hero-image { width: 100%; max-width: 100%; flex: 0 0 auto; }
+  .hero-image img { border-width: 12px; }
+  .hero-title { font-size: 2.2rem; }
+  .contact-reviews-grid { grid-template-columns: 1fr; }
+}
+
+.map-container iframe {
+  display: block;
+  width: 100%; height: 100%;
+  border: 0;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+@media (max-width: 600px) {
+  .overlay-contact { flex-direction: column; gap: 8px; }
+}

@@ -1,5 +1,5 @@
-import { Component, HostListener, AfterViewInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
-import { RouterModule } from '@angular/router'; // Importar Router
+import { Component, HostListener, AfterViewInit, OnInit, ViewChild, ViewChildren, ElementRef, Renderer2, ViewEncapsulation } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ProductosService } from '../../services/productos';
 import { Router } from '@angular/router';
@@ -10,84 +10,104 @@ import { Router } from '@angular/router';
   imports: [RouterModule, CommonModule],
   templateUrl: './header.html',
   styleUrl: './header.css',
+  encapsulation: ViewEncapsulation.None,
 })
-export class Header implements AfterViewInit {
-  menuOpen = false;
+export class Header implements OnInit, AfterViewInit {
+  menuOpen   = false;
+  isDark     = false;
+  searchOpen = false;
 
-  // Actualizamos la estructura de navItems
+  @ViewChild('searchInputEl') searchInputEl?: ElementRef<HTMLInputElement>;
+
   navItems = [
-    { label: 'Interior', href: '/products', category: 'Interior', router: true },
-    { label: 'Exterior', href: '/products', category: 'Exterior', router: true },
-    { label: 'Servicios', href: '/servicios', router: true },
-    { label: 'Sobre nosotros', href: '/contact', router: true },
+    { label: 'Interior',       href: '/products', category: 'Interior', router: true },
+    { label: 'Exterior',       href: '/products', category: 'Exterior', router: true },
+    { label: 'Servicios',      href: '/servicios', router: true },
+    { label: 'Sobre nosotros', href: '/contact',   router: true },
   ];
 
-  visibleItems = [...this.navItems];
+  visibleItems  = [...this.navItems];
   overflowItems: Array<any> = [];
 
   @ViewChild('navContainer', { static: true }) navContainer!: ElementRef<HTMLElement>;
-  @ViewChild('measure', { static: true }) measure!: ElementRef<HTMLElement>;
+  @ViewChild('measure',      { static: true }) measure!:      ElementRef<HTMLElement>;
 
   constructor(
-    private renderer: Renderer2, 
+    private renderer: Renderer2,
     private productosService: ProductosService,
     private router: Router
   ) {}
 
-  // Nuevo método de navegación unificado
+  ngOnInit() {
+    // 1. Lee preferencia guardada; si no hay ninguna, usa el sistema
+    const saved = localStorage.getItem('theme');
+    if (saved === 'dark' || saved === 'light') {
+      this.isDark = saved === 'dark';
+    } else {
+      this.isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    }
+    this.applyTheme();
+  }
+
+  toggleTheme() {
+    this.isDark = !this.isDark;
+    localStorage.setItem('theme', this.isDark ? 'dark' : 'light');
+    this.applyTheme();
+  }
+
+  private applyTheme() {
+    if (this.isDark) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+    }
+  }
+
+  toggleSearch() {
+    this.searchOpen = !this.searchOpen;
+    if (this.searchOpen) {
+      setTimeout(() => this.searchInputEl?.nativeElement.focus(), 50);
+    }
+  }
+
+  closeSearch() {
+    this.searchOpen = false;
+  }
+
   navigate(path: string, category?: string) {
-    if (category) {
-      this.productosService.setSelectedCategory(category);
-    }
+    if (category) this.productosService.setSelectedCategory(category);
     this.router.navigate([path]);
-    
-    // Si el menú está abierto, lo cerramos
-    if (this.menuOpen) {
-      this.toggleMenu();
-    }
+    if (this.menuOpen) this.toggleMenu();
   }
 
-  // Método para el buscador
   onSearch(event: any) {
-    const query = event.target.value.trim(); // Usamos trim() para limpiar espacios
-    if (query) { // Solo buscamos si hay texto
+    const query = event.target.value.trim();
+    if (query) {
       this.router.navigate(['/search'], { queryParams: { q: query } });
-      event.target.value = ''; // Limpiamos el input
+      event.target.value = '';
     }
   }
 
-  toggleMenu() {
-    this.menuOpen = !this.menuOpen;
-  }
+  toggleMenu() { this.menuOpen = !this.menuOpen; }
 
-
-  // Nuevo método para establecer la categoría desde el header
   selectCategory(category: string) {
     this.productosService.setSelectedCategory(category);
   }
 
-  // Mantenemos toda la lógica del menú responsive
   ngAfterViewInit(): void {
-    // initial layout
     setTimeout(() => this.updateNav(), 0);
   }
+
   @HostListener('window:resize')
   onResize() {
-    // update nav layout on resize
     this.updateNav();
-    if (window.innerWidth > 768 && this.menuOpen) {
-      this.menuOpen = false;
-    }
+    if (window.innerWidth > 768 && this.menuOpen) this.menuOpen = false;
   }
 
-  checkScreenSize() {
-    return window.innerWidth <= 768;
-  }
+  checkScreenSize() { return window.innerWidth <= 768; }
 
   private updateNav() {
-    if (!this.navContainer || !this.measure) {
-      return;
-    }
+    if (!this.navContainer || !this.measure) return;
     const container = this.navContainer.nativeElement;
     const measureEl = this.measure.nativeElement;
 
@@ -96,33 +116,27 @@ export class Header implements AfterViewInit {
     this.navItems.forEach(item => {
       const li = this.renderer.createElement('li');
       this.renderer.setStyle(li, 'display', 'inline-block');
-      this.renderer.setStyle(li, 'padding', '6px 8px');
+      this.renderer.setStyle(li, 'padding', '6px 12px');
       li.textContent = item.label;
       measureEl.appendChild(li);
       itemEls.push(li as HTMLElement);
     });
 
-    const moreButtonWidth = 70; 
-    const available = container.clientWidth - moreButtonWidth;
-
+    const available = container.clientWidth - 70;
     let used = 0;
     let lastIndex = this.navItems.length;
     for (let i = 0; i < itemEls.length; i++) {
       const w = Math.ceil(itemEls[i].getBoundingClientRect().width);
-      if (used + w > available) {
-        lastIndex = i;
-        break;
-      }
+      if (used + w > available) { lastIndex = i; break; }
       used += w;
     }
 
     if (lastIndex < this.navItems.length) {
-      this.visibleItems = this.navItems.slice(0, lastIndex);
+      this.visibleItems  = this.navItems.slice(0, lastIndex);
       this.overflowItems = this.navItems.slice(lastIndex);
     } else {
-      this.visibleItems = [...this.navItems];
+      this.visibleItems  = [...this.navItems];
       this.overflowItems = [];
     }
   }
 }
-

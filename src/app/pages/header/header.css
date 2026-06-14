@@ -1,366 +1,401 @@
+/* ============================================================
+   DARK MODE TOKENS  –  añade data-theme="dark" al <html>
+   ============================================================ */
+:root {
+  --hdr-bg:            #ffffff;
+  --hdr-border:        #e8e4df;
+  --hdr-text:          #1a1410;
+  --hdr-text-soft:     #555;
+  --hdr-hover-bg:      #f2ede8;
+  --hdr-search-bg:     #f0ebe5;
+  --hdr-search-text:   #333;
+  --hdr-search-ph:     #999;
+  --hdr-gold:          #b8924a;
+  --hdr-sidebar-bg:    #ffffff;
+  --hdr-overlay:       rgba(0,0,0,0.45);
+  --hdr-more-bg:       #ffffff;
+  --hdr-more-shadow:   0 4px 16px rgba(0,0,0,0.10);
+}
+
+[data-theme="dark"] {
+  --hdr-bg:            #1a1410;
+  --hdr-border:        #2e2418;
+  --hdr-text:          #f0ebe4;
+  --hdr-text-soft:     #a89880;
+  --hdr-hover-bg:      #231c14;
+  --hdr-search-bg:     #231c14;
+  --hdr-search-text:   #f0ebe4;
+  --hdr-search-ph:     #6b5f52;
+  --hdr-gold:          #c8a96e;
+  --hdr-sidebar-bg:    #1a1410;
+  --hdr-overlay:       rgba(0,0,0,0.68);
+  --hdr-more-bg:       #231c14;
+  --hdr-more-shadow:   0 4px 16px rgba(0,0,0,0.50);
+}
+
+/* ============================================================
+   HEADER  (no sticky – igual que el original)
+   ============================================================ */
 header {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    background-color: white;
-    border-bottom: 1px solid #eee;
-    z-index: 100;
-    position: sticky;
-    top: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background-color: var(--hdr-bg);
+  border-bottom: 1px solid var(--hdr-border);
+  z-index: 100;
+  /* sin position:sticky */
+  transition: background-color 0.3s, border-color 0.3s;
 }
 
 .header-inner {
-    width: 100%;
-    max-width: 1200px;
-    padding: 0 18px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    height: 110px;
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  height: 72px;          /* más compacto que los 110 px originales */
 }
 
+/* ── Logo ── */
 .logo {
-    flex-shrink: 0;
-    min-width: max-content;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+  flex-shrink: 0;
+  min-width: max-content;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .logo-link {
-    text-decoration: none;
-    color: black;
-    font-size: 14px;
-    font-weight: 500;
-    letter-spacing: 1px;
-    transition: opacity 0.3s;
+  text-decoration: none;
+  color: var(--hdr-text);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  transition: opacity 0.25s;
 }
-
-.logo-link:hover {
-    opacity: 0.7;
-}
+.logo-link:hover { opacity: 0.65; }
 
 .tagline {
-    font-style: italic;
-    font-size: 12px;
-    color: #333;
-    margin: 0;
-    padding-top: 2px;
-    align-self: flex-end;
+  font-style: italic;
+  font-size: 11px;
+  color: var(--hdr-gold);
+  margin: 0;
+  padding-top: 2px;
+  align-self: flex-end;
+  letter-spacing: 0.03em;
 }
 
-/* Search box */
-.search-box {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-shrink: 0;
-    background-color: #f0f0f0;
-    border-radius: 20px;
-    padding: 6px 14px;
+/* ── Search — lupa que expande empujando el nav ── */
+.search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* Botón lupa */
+.search-icon-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--hdr-border);
+  background: var(--hdr-search-bg);
+  color: var(--hdr-text-soft);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.2s, color 0.2s;
+  z-index: 2;
+  position: relative;
+}
+.search-icon-btn:hover { color: var(--hdr-text); background: var(--hdr-hover-bg); }
+
+/* Cuando está abierto ocultar la lupa */
+.search-wrap.open .search-icon-btn { display: none; }
+
+/* Campo expandible — fluye en el layout, no es absolute */
+.search-field {
+  display: flex;
+  align-items: center;
+  width: 0;
+  max-width: 0;
+  overflow: hidden;
+  background: var(--hdr-search-bg);
+  border-radius: 22px;
+  border: 1px solid transparent;
+  transition: max-width 0.35s cubic-bezier(0.4,0,0.2,1),
+              width 0.35s cubic-bezier(0.4,0,0.2,1),
+              border-color 0.2s,
+              opacity 0.25s;
+  opacity: 0;
+}
+.search-wrap.open .search-field {
+  width: 240px;
+  max-width: 240px;
+  border-color: var(--hdr-border);
+  opacity: 1;
 }
 
 .search-input {
-    border: none;
-    background: transparent;
-    font-size: 13px;
-    font-weight: 500;
-    outline: none;
-    color: #333;
-    padding: 0;
-    min-width: 130px;
-    transition: color 0.3s;
+  border: none;
+  background: transparent;
+  font-size: 13px;
+  outline: none;
+  color: var(--hdr-search-text);
+  padding: 7px 12px;
+  width: 100%;
+  min-width: 0;
 }
+.search-input::placeholder { color: var(--hdr-search-ph); }
 
-.search-input:focus {
-    color: #000;
+.search-close-btn {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  color: var(--hdr-text-soft);
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0 10px 0 0;
+  line-height: 1;
 }
+.search-close-btn:hover { color: var(--hdr-text); }
 
-.search-input::placeholder {
-    color: #999;
-    font-weight: 400;
-}
-
-.search-icon {
-    font-size: 16px;
-    cursor: pointer;
-    color: #999;
-    flex-shrink: 0;
-    width: 16px;
-    height: 16px;
-    object-fit: contain;
-}
-
-/* Navigation */
+/* ── Nav ── */
 nav {
-    flex: 1;
-    display: flex;
-    justify-content: center;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
 }
 
 .nav-desktop {
-    display: flex;
-    gap: 2px;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    justify-content: center;
-    flex-wrap: wrap;
+  display: flex;
+  gap: 2px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  justify-content: center;
+  flex-wrap: wrap;
 }
-
-.nav-desktop li {
-    position: relative;
-}
+.nav-desktop li { position: relative; }
 
 .nav-desktop a {
-    display: inline-block;
-    padding: 8px 12px;
-    text-decoration: none;
-    color: #333;
-    font-size: 13px;
-    font-weight: 500;
-    transition: color 0.3s, background-color 0.3s;
-    white-space: nowrap;
+  display: inline-block;
+  padding: 6px 12px;
+  text-decoration: none;
+  color: var(--hdr-text-soft);
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 6px;
+  transition: color 0.2s, background-color 0.2s;
+  white-space: nowrap;
 }
-
 .nav-desktop a:hover {
-    color: #555;
-    background-color: #f0f0f0;
-    border-radius: 2px;
+  color: var(--hdr-text);
+  background-color: var(--hdr-hover-bg);
 }
 
-/* More dropdown */
-.more {
-    position: relative;
+/* Active/current page link */
+.nav-desktop a.active-link,
+.nav-desktop a:focus-visible {
+  color: var(--hdr-text);
+  border-bottom: 2px solid var(--hdr-gold);
+  border-radius: 0;
+  padding-bottom: 4px;
 }
+
+/* ── Toggle modo oscuro/claro — switch con sol/luna ── */
+.theme-toggle {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.toggle-track {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 52px;
+  height: 28px;
+  border-radius: 14px;
+  background: #c8c4be;          /* APAGADO: gris */
+  border: 1px solid #b8b4ae;
+  transition: background 0.35s ease, border-color 0.3s ease;
+  padding: 0;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+/* ENCENDIDO: fondo dorado — activado por clase .dark en el botón */
+.theme-toggle.dark .toggle-track {
+  background: #c8a96e;
+  border-color: #b8924a;
+}
+
+.toggle-thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.30);
+  /* Transición suave del movimiento */
+  transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #b8924a;
+  z-index: 2;
+}
+
+/* ENCENDIDO: thumb se mueve a la derecha */
+.theme-toggle.dark .toggle-thumb {
+  transform: translateX(24px);
+  color: #1a1410;
+}
+
+.theme-toggle:hover .toggle-track { border-color: #c8a96e; }
+
+/* ── More dropdown ── */
+.more { position: relative; }
 
 .more-btn {
-    padding: 8px 12px;
-    border: none;
-    background: transparent;
-    color: #333;
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: color 0.3s, background-color 0.3s;
+  padding: 6px 12px;
+  border: none;
+  background: transparent;
+  color: var(--hdr-text-soft);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  border-radius: 6px;
+  transition: color 0.2s, background-color 0.2s;
 }
-
-.more-btn:hover {
-    color: #555;
-    background-color: #f0f0f0;
-    border-radius: 2px;
-}
+.more-btn:hover { color: var(--hdr-text); background-color: var(--hdr-hover-bg); }
 
 .more-menu {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: white;
-    border: 1px solid #eee;
-    border-radius: 2px;
-    list-style: none;
-    padding: 8px 0;
-    margin: 4px 0 0 0;
-    min-width: 150px;
-    display: none;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  background-color: var(--hdr-more-bg);
+  border: 1px solid var(--hdr-border);
+  border-radius: 8px;
+  list-style: none;
+  padding: 6px;
+  margin: 0;
+  min-width: 160px;
+  display: none;
+  box-shadow: var(--hdr-more-shadow);
+  z-index: 1000;
 }
-
-.more:hover .more-menu {
-    display: block;
-}
-
-.more-menu li {
-    padding: 0;
-}
+.more:hover .more-menu { display: block; }
 
 .more-menu a {
-    display: block;
-    padding: 10px 16px;
-    text-decoration: none;
-    color: #333;
-    font-size: 13px;
-    font-weight: 500;
-    transition: background-color 0.3s;
+  display: block;
+  padding: 8px 12px;
+  text-decoration: none;
+  color: var(--hdr-text-soft);
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 5px;
+  transition: background-color 0.2s, color 0.2s;
 }
+.more-menu a:hover { background-color: var(--hdr-hover-bg); color: var(--hdr-text); }
 
-.more-menu a:hover {
-    background-color: #f5f5f5;
-}
-
-/* Hamburger menu */
+/* ── Hamburger ── */
 .menu-btn {
-    display: none;
-    flex-shrink: 0;
-    background: none;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
-    color: #333;
+  display: none;
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  color: var(--hdr-text);
+  line-height: 1;
 }
 
-/* Sidebar */
+/* ── Sidebar ── */
 .sidebar {
-    position: fixed; /* Clave: se posiciona relativo a la ventana del navegador */
-    top: 0;
-    left: 0;
-    width: 280px; /* Ancho del menú */
-    height: 100%;
-    background-color: white;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-    
-    /* Oculto por defecto, movido fuera de la pantalla */
-    transform: translateX(-100%);
-    transition: transform 0.3s ease-in-out;
-    
-    z-index: 1001; /* Z-index alto para que esté por encima de todo */
-    padding-top: 20px;
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto; /* <-- AÑADIDO: Permite el scroll DENTRO del sidebar */
+  position: fixed;
+  top: 0; left: 0;
+  width: 280px;
+  height: 100%;
+  background-color: var(--hdr-sidebar-bg);
+  border-right: 1px solid var(--hdr-border);
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-in-out, background-color 0.3s;
+  z-index: 1001;
+  padding-top: 16px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
 }
-
-/* Cuando el sidebar tiene la clase .open, se muestra */
-.sidebar.open {
-    transform: translateX(0);
-}
-
-/* Overlay (fondo oscuro) */
-.overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    
-    /* Oculto por defecto */
-    opacity: 0;
-    visibility: hidden;
-    
-    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-    z-index: 1000; /* Justo debajo del sidebar */
-}
-
-/* Cuando el overlay tiene la clase .open, se muestra */
-.overlay.open {
-    opacity: 1;
-    visibility: visible;
-}
+.sidebar.open { transform: translateX(0); }
 
 .sidebar a {
-    padding: 16px 20px;
-    text-decoration: none;
-    color: #333;
-    font-size: 14px;
-    font-weight: 500;
-    border-bottom: 1px solid #eee;
-    transition: background-color 0.3s;
+  padding: 15px 20px;
+  text-decoration: none;
+  color: var(--hdr-text);
+  font-size: 14px;
+  font-weight: 500;
+  border-bottom: 1px solid var(--hdr-border);
+  transition: background-color 0.2s;
 }
-
-.sidebar a:hover {
-    background-color: #f5f5f5;
-}
+.sidebar a:hover { background-color: var(--hdr-hover-bg); }
 
 .close-btn {
-    align-self: flex-end;
-    padding: 16px 20px;
-    background: none;
-    border: none;
-    font-size: 18px;
-    cursor: pointer;
-    color: #333;
+  align-self: flex-end;
+  padding: 12px 18px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: var(--hdr-text-soft);
 }
 
-/* Responsive */
+/* ── Overlay ── */
+.overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: var(--hdr-overlay);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+  z-index: 1000;
+}
+.overlay.open { opacity: 1; visibility: visible; }
+
+/* ── Responsive ── */
 @media (max-width: 1200px) {
-    .search-input {
-        min-width: 120px;
-    }
-
-    .nav-desktop a {
-        padding: 8px 10px;
-        font-size: 12px;
-    }
-
-    .more-btn {
-        padding: 8px 10px;
-        font-size: 12px;
-    }
-}
-
-@media (max-width: 1024px) {
-    .search-input {
-        min-width: 100px;
-    }
-
-    .nav-desktop a {
-        padding: 6px 8px;
-        font-size: 12px;
-    }
-
-    .more-btn {
-        padding: 6px 8px;
-        font-size: 12px;
-    }
+  .search-input { min-width: 120px; }
+  .nav-desktop a { padding: 6px 10px; font-size: 12px; }
+  .more-btn      { padding: 6px 10px; font-size: 12px; }
 }
 
 @media (max-width: 768px) {
-    .header-inner {
-        height: auto;
-        padding: 12px 18px;
-        gap: 12px;
-    }
-
-    .logo-link {
-        font-size: 12px;
-    }
-
-    .search-box {
-        margin-left: 0;
-        order: 3;
-        width: calc(100% - 24px);
-        margin-top: 8px;
-    }
-
-    .search-input {
-        min-width: unset;
-        flex: 1;
-    }
-
-    .nav-desktop {
-        display: none;
-    }
-
-    .menu-btn {
-        display: block;
-    }
-
-    .sidebar {
-        display: flex;
-    }
+  .header-inner { height: auto; padding: 10px 14px; flex-wrap: wrap; gap: 10px; }
+  .search-box   { order: 3; width: 100%; }
+  .search-input { flex: 1; min-width: unset; }
+  .nav-desktop  { display: none; }
+  .menu-btn     { display: block; }
 }
 
 @media (max-width: 480px) {
-    .header-inner {
-        flex-wrap: wrap;
-    }
-
-    .search-box {
-        max-width: none;
-        order: 3;
-        width: 100%;
-        font-size: 12px;
-    }
-
-    .logo-link {
-        font-size: 11px;
-    }
-
-    .search-input {
-        font-size: 12px;
-    }
+  .header-inner { flex-wrap: wrap; }
+  .search-box   { max-width: none; order: 3; width: 100%; font-size: 12px; }
+  .logo-link    { font-size: 11px; }
+  .search-input { font-size: 12px; }
 }

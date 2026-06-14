@@ -1,6 +1,6 @@
-import { Component, AfterViewInit, HostListener, ViewChild, ElementRef, Renderer2 } from '@angular/core';
+import { Component, AfterViewInit, HostListener, ViewChild, ElementRef, Renderer2, ViewEncapsulation } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ProductosService } from '../../services/productos'; // Importamos el servicio
+import { ProductosService } from '../../services/productos';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
   imports: [RouterModule, CommonModule],
   templateUrl: './home.html',
   styleUrl: './home.css',
+  encapsulation: ViewEncapsulation.None,
 })
 export class Home implements AfterViewInit {
   @ViewChild('heroRef', { static: true }) heroRef!: ElementRef<HTMLElement>;
@@ -47,8 +48,7 @@ export class Home implements AfterViewInit {
 
   hasDragged = false;
 
-  // Inyectamos el servicio en el constructor
-  constructor(private renderer: Renderer2, 
+  constructor(private renderer: Renderer2,
               private cdr: ChangeDetectorRef,
               private productosService: ProductosService, private router: Router) {}
 
@@ -60,87 +60,80 @@ export class Home implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    // set an initial position
     this.updateHeroBackground();
+    // Esperar 2 frames para que el DOM haya pintado y offsetWidth sea real
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        this.initCarousel();
+      });
+    });
+  }
 
-    // Make carousel infinite
+  private initCarousel(): void {
     const carousel = this.carousel.nativeElement;
-    const cards = Array.from(carousel.children) as HTMLElement[];
-    const numCards = cards.length;
+    const originalCards = Array.from(carousel.children) as HTMLElement[];
+    const numCards = originalCards.length;
 
-    // Clone cards to end and start for infinite effect
-    cards.forEach(card => {
-      const clone = card.cloneNode(true) as HTMLElement;
-      carousel.appendChild(clone);
-    });
-    cards.slice().reverse().forEach(card => {
-      const clone = card.cloneNode(true) as HTMLElement;
-      carousel.insertBefore(clone, carousel.firstChild);
+    if (numCards === 0) return;
+
+    // Clonar al final y al principio para scroll infinito
+    originalCards.forEach(card => carousel.appendChild(card.cloneNode(true)));
+    originalCards.slice().reverse().forEach(card => {
+      carousel.insertBefore(card.cloneNode(true), carousel.firstChild);
     });
 
-    // Set initial scroll to middle
-    carousel.scrollLeft = numCards * (cards[0].offsetWidth + 16); // approx gap
+    const cardWidth = originalCards[0].offsetWidth + 16;
+    const totalWidth = numCards * cardWidth;
+    const startScroll = numCards * cardWidth; // apunta al set original (centro)
 
-    // Handle infinite scroll
+    // Saltar sin animación al centro
+    carousel.style.scrollBehavior = 'auto';
+    carousel.scrollLeft = startScroll;
+    requestAnimationFrame(() => { carousel.style.scrollBehavior = ''; });
+
+    // IMPORTANTE: usar < (estrictamente menor) no <=
+    // porque startScroll === totalWidth y <= dispararía un reset en la init
     carousel.addEventListener('scroll', () => {
-      const cardWidth = cards[0].offsetWidth + 16;
-      const totalWidth = numCards * cardWidth;
       if (carousel.scrollLeft >= totalWidth * 2) {
+        carousel.style.scrollBehavior = 'auto';
         carousel.scrollLeft -= totalWidth;
-      } else if (carousel.scrollLeft <= totalWidth) {
+        requestAnimationFrame(() => { carousel.style.scrollBehavior = ''; });
+      } else if (carousel.scrollLeft < totalWidth) {
+        carousel.style.scrollBehavior = 'auto';
         carousel.scrollLeft += totalWidth;
+        requestAnimationFrame(() => { carousel.style.scrollBehavior = ''; });
       }
     });
   }
 
-  // Nuevo método para establecer la categoría
   selectCategory(category: string) {
     this.productosService.setSelectedCategory(category);
   }
 
-  onMouseOver(servicio: any) {
-    servicio.imgActual = servicio.imgHover;
-  }
-
-  onMouseOut(servicio: any) {
-    servicio.imgActual = servicio.imgNormal;
-  }
+  onMouseOver(servicio: any) { servicio.imgActual = servicio.imgHover; }
+  onMouseOut(servicio: any)  { servicio.imgActual = servicio.imgNormal; }
 
   @HostListener('window:scroll')
-  onWindowScroll() {
-    this.updateHeroBackground();
-  }
+  onWindowScroll() { this.updateHeroBackground(); }
 
   @HostListener('window:resize')
-  onResize() {
-    this.updateHeroBackground();
-  }
+  onResize() { this.updateHeroBackground(); }
 
   private updateHeroBackground() {
     try {
       const hero = this.heroRef.nativeElement;
       const rect = hero.getBoundingClientRect();
       const windowHeight = window.innerHeight || document.documentElement.clientHeight;
-
-      // Compute how much of the hero is visible (0..1)
       const visibleTop = Math.max(0, Math.min(rect.bottom, windowHeight) - Math.max(rect.top, 0));
       const visibleRatio = rect.height > 0 ? visibleTop / rect.height : 0;
-
-      // Map visibleRatio to an offset percentage around 50% (center)
-      // When hero is scrolled up (visibleRatio small) show top of image; when scrolled down (visibleRatio large) show bottom
-      const offsetRange = 30; // percentage range to move (±30%)
-      const offset = (visibleRatio - 0.5) * offsetRange * 2; // -30 .. +30
-
-      const pos = 50 + offset; // base 50% (center)
+      const offsetRange = 30;
+      const offset = (visibleRatio - 0.5) * offsetRange * 2;
+      const pos = 50 + offset;
       this.renderer.setStyle(hero, 'backgroundPosition', `center ${pos}%`);
-    } catch (e) {
-      // defensive: ignore if something goes wrong
-    }
+    } catch (e) {}
   }
 
-  goToProductDetails(id: string) {
-    this.router.navigate(['/products', id]);
-  }
+  goToProductDetails(id: string) { this.router.navigate(['/products', id]); }
 
   onCategoryClick(event: MouseEvent, category: string) {
     if (this.hasDragged) {
@@ -148,90 +141,52 @@ export class Home implements AfterViewInit {
       event.stopPropagation();
       return;
     }
-
     this.selectCategory(category);
     this.router.navigate(['/products']);
   }
 
-  scrollToLeft() {
-    document.querySelector('.category-carousel')
-      ?.scrollBy({ left: -300, behavior: 'smooth' });
-  }
-
-  scrollToRight() {
-    document.querySelector('.category-carousel')
-      ?.scrollBy({ left: 300, behavior: 'smooth' });
-  }
+  scrollToLeft()  { this.carousel.nativeElement.scrollBy({ left: -280, behavior: 'smooth' }); }
+  scrollToRight() { this.carousel.nativeElement.scrollBy({ left:  280, behavior: 'smooth' }); }
 
   onMouseDown(event: MouseEvent) {
     this.isDragging = true;
     this.hasDragged = false;
-
     this.startX = event.pageX - this.carousel.nativeElement.offsetLeft;
     this.scrollLeft = this.carousel.nativeElement.scrollLeft;
-
     this.lastX = event.pageX;
     this.lastTime = performance.now();
-
-    // cortar inercia si existía
-    if (this.momentumId) {
-      cancelAnimationFrame(this.momentumId);
-      this.momentumId = null;
-    }
+    if (this.momentumId) { cancelAnimationFrame(this.momentumId); this.momentumId = null; }
   }
 
   onMouseMove(event: MouseEvent) {
     if (!this.isDragging) return;
-
     event.preventDefault();
-
     const x = event.pageX - this.carousel.nativeElement.offsetLeft;
     const walk = (x - this.startX) * 1.3;
-
     this.carousel.nativeElement.scrollLeft = this.scrollLeft - walk;
-
-    // detectar drag real (para cancelar click)
-    if (Math.abs(walk) > 5) {
-      this.hasDragged = true;
-    }
-
-    // calcular velocidad
+    if (Math.abs(walk) > 5) this.hasDragged = true;
     const now = performance.now();
-    const dx = event.pageX - this.lastX;
-    const dt = now - this.lastTime;
-
-    this.velocity = dx / dt;
-
+    this.velocity = (event.pageX - this.lastX) / (now - this.lastTime);
     this.lastX = event.pageX;
     this.lastTime = now;
   }
 
   onMouseUp() {
     if (!this.isDragging) return;
-
     this.isDragging = false;
     this.applyMomentum();
   }
 
-  onMouseLeave() {
-    this.onMouseUp();
-  }
+  onMouseLeave() { this.onMouseUp(); }
 
   applyMomentum() {
     const friction = 0.65;
-
     const step = () => {
-      if (Math.abs(this.velocity) < 0.01) {
-        this.momentumId = null;
-        return;
-      }
-
+      if (Math.abs(this.velocity) < 0.01) { this.momentumId = null; return; }
       this.carousel.nativeElement.scrollLeft -= this.velocity * 20;
       this.velocity *= friction;
-
       this.momentumId = requestAnimationFrame(step);
     };
-
     this.momentumId = requestAnimationFrame(step);
   }
 }
